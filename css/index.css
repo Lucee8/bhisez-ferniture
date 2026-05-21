@@ -774,60 +774,227 @@
     }
     .cta-btn-out:hover { background: rgba(255,255,255,0.1); }
 
-    /* ═══════════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════════ */
-    .footer {
-      background: #111;
-      color: rgba(255,255,255,0.7);
-      padding: 3.5rem 0 0;
-    }
-    .footer-grid {
-      max-width: 1400px; margin: 0 auto;
-      padding: 0 2rem 2.5rem;
-      display: grid;
-      grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
-      gap: 2.5rem;
-    }
-    .footer-brand .logo-main { color: var(--white); font-size: 1.3rem; }
-    .footer-brand .logo-sub  { color: rgba(255,255,255,0.4); }
-    .footer-brand p {
-      font-size: 0.83rem; color: rgba(255,255,255,0.5);
-      line-height: 1.7; margin: 1rem 0 1.25rem;
-    }
-    .footer-socials { display: flex; gap: 0.6rem; }
-    .footer-socials a {
-      width: 34px; height: 34px;
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      color: rgba(255,255,255,0.5);
-      transition: all 0.2s;
-    }
-    .footer-socials a:hover { border-color: var(--green); color: var(--green); }
-    .footer-col h4 {
-      font-size: 0.68rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--green);
-      margin-bottom: 1rem; font-weight: 600;
-    }
-    .footer-col ul li { margin-bottom: 0.5rem; }
-    .footer-col ul a {
-      font-size: 0.83rem; color: rgba(255,255,255,0.5);
-      transition: color 0.2s;
-    }
-    .footer-col ul a:hover { color: var(--white); }
-    .footer-contact li {
-      display: flex; align-items: flex-start; gap: 0.5rem;
-      font-size: 0.83rem; color: rgba(255,255,255,0.5);
-      margin-bottom: 0.6rem; line-height: 1.5;
-    }
-    .footer-contact li span { flex-shrink: 0; }
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.08);
-      padding: 1.25rem 2rem;
-      text-align: center;
-    }
-    .footer-bottom p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+/* ═══════════════════════════════════════
+   FOOTER — BASE (desktop)
+═══════════════════════════════════════ */
+.footer {
+  background: #111;
+  color: rgba(255,255,255,0.7);
+  padding: 3.5rem 0 0;
+}
+.footer-grid {
+  max-width: 1400px; margin: 0 auto;
+  padding: 0 2rem 2.5rem;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+  gap: 2.5rem;
+}
+.footer-brand .logo-main { color: var(--white); font-size: 1.3rem; }
+.footer-brand .logo-sub  { color: rgba(255,255,255,0.4); }
+.footer-brand p {
+  font-size: 0.83rem; color: rgba(255,255,255,0.5);
+  line-height: 1.7; margin: 1rem 0 1.25rem;
+}
+.footer-socials { display: flex; gap: 0.6rem; }
+.footer-socials a {
+  width: 34px; height: 34px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.5);
+  transition: all 0.2s;
+}
+.footer-socials a:hover { border-color: var(--green); color: var(--green); }
+.footer-col h4 {
+  font-size: 0.68rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--green);
+  margin-bottom: 1rem; font-weight: 600;
+}
+.footer-col ul li { margin-bottom: 0.5rem; }
+.footer-col ul a {
+  font-size: 0.83rem; color: rgba(255,255,255,0.5);
+  transition: color 0.2s;
+}
+.footer-col ul a:hover { color: var(--white); }
+.footer-contact li {
+  display: flex; align-items: flex-start; gap: 0.5rem;
+  font-size: 0.83rem; color: rgba(255,255,255,0.5);
+  margin-bottom: 0.6rem; line-height: 1.5;
+}
+.footer-contact li span { flex-shrink: 0; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 1.25rem 2rem;
+  text-align: center;
+}
+.footer-bottom p { font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+
+
+/* ═══════════════════════════════════════
+   FOOTER — TABLET (≤900px)
+   Brand full-width, 2-col links below
+═══════════════════════════════════════ */
+@media (max-width: 900px) {
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .footer-brand {
+    grid-column: 1 / -1;
+    /* Left-align on tablet — cleaner than centered */
+    text-align: left;
+  }
+  .footer-brand p { max-width: 480px; }
+}
+
+
+/* ═══════════════════════════════════════
+   FOOTER — MOBILE (≤768px)
+   Single-column, compact, card-like cols
+═══════════════════════════════════════ */
+@media (max-width: 768px) {
+  .footer {
+    padding: 2.5rem 0 0;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 0 0;
+  }
+
+  /* ── Brand block ── */
+  .footer-brand {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 0 1.5rem 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .footer-brand .logo-img {
+    height: 52px;
+    width: auto;
+  }
+  .footer-brand p {
+    margin: 0.85rem auto 1.1rem;
+    max-width: 300px;
+    font-size: 0.82rem;
+  }
+  .footer-socials {
+    justify-content: center;
+  }
+
+  /* ── Link columns: side-by-side in a 2-col mini-grid ── */
+  .footer-cols-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  /* If you can't add a wrapper div, target the two middle cols directly */
+  .footer-grid > .footer-col:nth-child(2),
+  .footer-grid > .footer-col:nth-child(3) {
+    padding: 1.5rem 1.5rem 1.5rem;
+    border-bottom: none;
+  }
+  .footer-grid > .footer-col:nth-child(2) {
+    border-right: 1px solid rgba(255,255,255,0.07);
+  }
+
+  /* ── Contact column: full-width, left-aligned ── */
+  .footer-grid > .footer-col:nth-child(4) {
+    padding: 1.5rem 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+
+  /* Tighten heading spacing */
+  .footer-col h4 {
+    font-size: 0.65rem;
+    margin-bottom: 0.85rem;
+  }
+
+  /* List items left-aligned on mobile */
+  .footer-col ul {
+    padding: 0;
+    list-style: none;
+    text-align: left;
+  }
+  .footer-col ul li {
+    margin-bottom: 0.55rem;
+  }
+  .footer-col ul a {
+    font-size: 0.82rem;
+  }
+
+  /* Contact items — keep left-aligned, fix icon alignment */
+  .footer-contact li {
+    font-size: 0.82rem;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .footer-contact li span {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    min-width: 18px;
+    text-align: center;
+  }
+
+  /* Serving line */
+  .footer-col p[style] {
+    margin-top: 0.75rem !important;
+  }
+
+  /* Bottom bar */
+  .footer-bottom {
+    padding: 1rem 1.5rem;
+    /* Add extra bottom padding so it clears the mobile nav bar */
+    padding-bottom: calc(1rem + 60px);
+  }
+  .footer-bottom p {
+    font-size: 0.7rem;
+    line-height: 1.6;
+  }
+}
+
+
+/* ═══════════════════════════════════════
+   FOOTER — SMALL MOBILE (≤480px)
+═══════════════════════════════════════ */
+@media (max-width: 480px) {
+  .footer-brand {
+    padding: 0 1.25rem 1.75rem;
+  }
+  .footer-brand p {
+    font-size: 0.79rem;
+  }
+
+  .footer-grid > .footer-col:nth-child(2),
+  .footer-grid > .footer-col:nth-child(3) {
+    padding: 1.25rem 1.25rem;
+  }
+  .footer-grid > .footer-col:nth-child(4) {
+    padding: 1.25rem 1.25rem;
+  }
+
+  /* On very small screens, stack Products & Quick Links too */
+  .footer-grid > .footer-col:nth-child(2),
+  .footer-grid > .footer-col:nth-child(3) {
+    grid-column: unset;
+  }
+  /* Keep them side-by-side even at 360px — they're short lists */
+  /* Only collapse to 1-col at truly tiny screens */
+}
+
+@media (max-width: 360px) {
+  .footer-grid > .footer-col:nth-child(2) {
+    border-right: none;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  /* Force a full 1-column layout */
+  .footer-grid > .footer-col:nth-child(2),
+  .footer-grid > .footer-col:nth-child(3) {
+    padding: 1.25rem 1.25rem;
+  }
+}
 
     /* ═══════════════════════════════════════
        FLOATING WHATSAPP
