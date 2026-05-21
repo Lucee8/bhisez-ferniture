@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Wishlist | Bhise'z Ferniture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --white:#fff;--bg:#f8f6f3;--border:#e8e2da;
+  --text:#1a1008;--sub:#666;--muted:#999;--light:#ccc;
+  --orange:#e07b39;--green:#2a7a4b;--brown:#7a5c3a;--red:#e74c3c;
+  --font:'DM Sans',system-ui,sans-serif;
+  --ease:cubic-bezier(.25,.46,.45,.94);
+}
+*{font-family:var(--font)}
+body{background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:none;background:none;font-family:var(--font)}
+
+/* TICKER */
+.ticker{background:#1a1008;color:rgba(255,255,255,.75);text-align:center;font-size:.72rem;padding:.4rem 1rem;letter-spacing:.02em}
+.ticker strong{color:var(--orange)}
+
+/* NAVBAR */
+.navbar{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:600}
+.nav-top{max-width:1440px;margin:0 auto;display:flex;align-items:center;padding:0 1.5rem;height:60px;gap:1rem}
+.nav-logo{display:flex;align-items:center;gap:.45rem;flex-shrink:0}
+.logo-box{width:32px;height:32px;border:2px solid var(--text);display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;font-style:italic}
+.logo-words{display:flex;flex-direction:column;line-height:1.1}
+.logo-words b{font-size:1rem;font-weight:700}
+.logo-words small{font-size:.44rem;letter-spacing:.28em;color:var(--muted);text-transform:uppercase}
+.nav-links{display:flex;gap:1.5rem;align-items:center;flex-shrink:0}
+.nav-links a{font-size:.8rem;color:var(--sub);transition:color .15s}
+.nav-links a:hover{color:var(--text)}
+.nav-search{flex:1;max-width:520px;position:relative;margin:0 1rem}
+.nav-search input{width:100%;padding:.55rem 1rem .55rem 2.3rem;border:1px solid var(--border);border-radius:6px;background:var(--bg);font-size:.83rem;color:var(--text);outline:none}
+.nav-search svg{position:absolute;left:.7rem;top:50%;transform:translateY(-50%);color:var(--light);pointer-events:none}
+.nav-icons{display:flex;align-items:center;gap:.15rem;flex-shrink:0}
+.ni{width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;color:var(--text);transition:background .15s;position:relative;text-decoration:none}
+.ni:hover{background:var(--bg)}
+.ni .badge{position:absolute;top:3px;right:3px;width:15px;height:15px;background:var(--orange);color:white;font-size:.56rem;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.ni.active-link svg{stroke:var(--red)}
+
+/* PAGE HEADER */
+.page-header{background:var(--white);border-bottom:1px solid var(--border);padding:1.5rem 0}
+.page-header-inner{max-width:1440px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:flex-end;justify-content:space-between}
+.bc{display:flex;align-items:center;gap:.35rem;font-size:.72rem;color:var(--muted);margin-bottom:.5rem}
+.bc a{color:var(--muted)}.bc a:hover{color:var(--text)}
+.ph-title{font-size:1.5rem;font-weight:600;display:flex;align-items:center;gap:.5rem}
+.ph-count{font-size:.82rem;color:var(--muted);font-weight:400;margin-left:.2rem}
+.clear-btn{font-size:.78rem;color:var(--muted);padding:.4rem .8rem;border:1px solid var(--border);border-radius:4px;transition:all .15s}
+.clear-btn:hover{color:var(--red);border-color:var(--red)}
+
+/* GRID */
+.pwrap{max-width:1440px;margin:0 auto;padding:1.2rem 1.5rem 4rem}
+.pgrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:0;
+  border-top:1px solid var(--border);
+  border-left:1px solid var(--border);
+}
+
+/* CARD */
+.pc{
+  background:var(--white);
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  display:flex;flex-direction:column;
+  position:relative;
+  transition:box-shadow .25s var(--ease);
+  cursor:pointer;
+}
+.pc:hover{box-shadow:0 2px 24px rgba(0,0,0,.08);z-index:2}
+.pc-img{position:relative;aspect-ratio:1.1/1;background:#ede9e2;overflow:hidden;flex-shrink:0}
+.pc-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease)}
+.pc:hover .pc-img img{transform:scale(1.05)}
+.pc-badge{position:absolute;top:0;left:0;padding:.2rem .6rem;font-size:.6rem;font-weight:700;letter-spacing:.05em;color:white;z-index:2;line-height:1.6;border-radius:0 0 4px 0}
+.badge-bs{background:var(--orange)}.badge-new{background:var(--orange)}.badge-cus{background:#7d5a9e}
+.pc-heart{
+  position:absolute;top:.6rem;right:.6rem;
+  width:30px;height:30px;background:rgba(255,255,255,.9);border-radius:50%;
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 1px 6px rgba(0,0,0,.12);
+  transition:transform .2s;z-index:3;
+}
+.pc-heart:hover{transform:scale(1.18)}
+.pc-heart svg{fill:var(--red);stroke:var(--red)}
+.pc-wa{
+  position:absolute;bottom:0;left:0;right:0;background:#25D366;color:white;
+  font-size:.67rem;font-weight:600;text-align:center;padding:.38rem;
+  display:flex;align-items:center;justify-content:center;gap:.3rem;
+  opacity:0;transform:translateY(4px);transition:opacity .22s,transform .22s;z-index:3;
+}
+.pc:hover .pc-wa{opacity:1;transform:translateY(0)}
+.pc-body{padding:.65rem .75rem .8rem;display:flex;flex-direction:column;gap:.2rem;flex:1}
+.pc-brand{font-size:.62rem;color:var(--muted)}
+.pc-name{font-size:.82rem;font-weight:400;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.3rem}
+.pc-prices{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap;margin-top:.1rem}
+.pc-now{font-size:.9rem;font-weight:600}
+.pc-was{font-size:.73rem;color:var(--light);text-decoration:line-through}
+.pc-off{font-size:.7rem;font-weight:600;color:var(--green)}
+.pc-enq{font-size:.82rem;font-weight:600;color:var(--brown)}
+.pc-swatches{display:flex;align-items:center;gap:.28rem;margin-top:.3rem}
+.sw{width:18px;height:18px;border-radius:50%;border:2px solid transparent;outline:2px solid transparent;cursor:pointer;transition:outline-color .15s,transform .15s;flex-shrink:0}
+.sw:hover{transform:scale(1.2)}
+.sw.on{outline:2px solid #888;outline-offset:1px}
+.sw-more{font-size:.65rem;color:var(--muted);font-weight:500}
+
+/* Remove row */
+.pc-remove{
+  display:flex;align-items:center;justify-content:center;gap:.3rem;
+  padding:.5rem;
+  font-size:.72rem;color:var(--muted);
+  border-top:1px solid var(--border);
+  transition:color .15s,background .15s;
+  cursor:pointer;
+}
+.pc-remove:hover{color:var(--red);background:#fff5f5}
+
+/* EMPTY STATE */
+.empty-state{
+  text-align:center;
+  padding:5rem 2rem 3rem;
+  max-width:380px;
+  margin:0 auto;
+}
+.empty-icon{font-size:4rem;margin-bottom:1rem;display:block;opacity:.25}
+.empty-state h2{font-size:1.2rem;font-weight:600;margin-bottom:.5rem}
+.empty-state p{font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:1.5rem}
+.shop-btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.75rem 2rem;
+  background:var(--orange);color:white;
+  border-radius:4px;font-size:.85rem;font-weight:500;
+  transition:opacity .2s;
+}
+.shop-btn:hover{opacity:.88}
+
+/* Toast */
+#wToast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:#1a1008;color:#fff;padding:.45rem 1.2rem;border-radius:50px;font-size:.77rem;z-index:9999;pointer-events:none;transition:opacity .3s;white-space:nowrap;opacity:0}
+
+/* Scroll reveal */
+.sr{opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.sr.d1{transition-delay:.03s}.sr.d2{transition-delay:.07s}.sr.d3{transition-delay:.11s}.sr.d4{transition-delay:.15s}
+.sr.visible{opacity:1;transform:none}
+
+@media(max-width:1200px){.pgrid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){.pgrid{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}}
+@media(max-width:640px){
+  .ticker{display:none}
+  .pgrid{grid-template-columns:repeat(2,1fr)}
+  .pwrap{padding:.7rem .5rem 3rem}
+  .page-header-inner{flex-direction:column;align-items:flex-start;gap:.75rem}
+}
+</style>
+</head>
+<body>
+
+<div id="wToast"></div>
+
+<!-- TICKER -->
+<div class="ticker">🎉 Grand Sale — Up to 40% OFF! Use code <strong>BHISEZ40</strong></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-top">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-box">B</div>
+      <div class="logo-words"><b>Bhise'z</b><small>Ferniture</small></div>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Visit Showroom</a>
+    </div>
+    <div class="nav-search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search beds, sofas, mandirs..."/>
+    </div>
+    <div class="nav-icons">
+      <a href="contact.html" class="ni">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </a>
+      <a href="contact.html" class="ni">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a href="wishlist.html" class="ni active-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#e74c3c" stroke="#e74c3c" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="badge" id="wishBadge" style="display:none">0</span>
+      </a>
+      <a href="beds.html" class="ni">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div>
+      <div class="bc"><a href="index.html">Home</a><span>›</span><span>My Wishlist</span></div>
+      <div class="ph-title">
+        ❤️ My Wishlist
+        <span class="ph-count" id="wlCount"></span>
+      </div>
+    </div>
+    <button class="clear-btn" id="clearAllBtn" onclick="clearWishlist()">Clear All</button>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="pwrap">
+  <div id="gridWrap"></div>
+</div>
+
+<!-- Floating WA -->
+<a href="https://wa.me/919999999999" target="_blank"
+   style="position:fixed;bottom:1.5rem;right:1.25rem;width:50px;height:50px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.4);z-index:500" aria-label="WhatsApp">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+/* All products data — same as beds page */
+const ALL_PRODUCTS=[
+  {id:1,name:'King Size Teak Wood Bed with Hydraulic Storage',size:'king',material:'teak',storage:'hydraulic',price:38000,orig:58000,img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80',badge:'bs',colors:['#6b4226','#3a3027','#c9a87c']},
+  {id:2,name:'Queen Size Engineered Wood Bed with Box Storage',size:'queen',material:'engineered-wood',storage:'box',price:22000,orig:38000,img:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80',badge:'bs',colors:['#9e8570','#2c2c2c','#b5a08a']},
+  {id:3,name:'Solid Wood Queen Bed Without Storage – Amber Walnut',size:'queen',material:'solid-wood',storage:'no-storage',price:28000,orig:46000,img:'https://images.unsplash.com/photo-1588046130717-0eb0c9a3ba15?w=600&q=80',badge:'new',colors:['#c9a87c','#6b4226']},
+  {id:4,name:'Mango Wood King Bed with Drawer Storage',size:'king',material:'mango-wood',storage:'drawer',price:42000,orig:65000,img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&q=80',badge:null,colors:['#6b4226','#8b7355']},
+  {id:5,name:'Engineered Wood Single Bed with Hydraulic Storage',size:'single',material:'engineered-wood',storage:'hydraulic',price:14000,orig:22000,img:'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&q=80',badge:'new',colors:['#3a3027','#9e8570','#f5f0e8']},
+  {id:6,name:'Sheesham Wood Queen Bed with Box Storage – Dark Finish',size:'queen',material:'sheesham',storage:'box',price:32000,orig:52000,img:'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80',badge:'bs',colors:['#2c2c2c','#3a3027']},
+  {id:7,name:'Teak Queen Bed with Headboard Storage – Honey Finish',size:'queen',material:'teak',storage:'box',price:55000,orig:78000,img:'https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=600&q=80',badge:null,colors:['#b5a08a','#c9a87c','#6b4226']},
+  {id:8,name:'Engineered Wood Double Bed Without Storage',size:'double',material:'engineered-wood',storage:'no-storage',price:12000,orig:20000,img:'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&q=80',badge:'new',colors:['#9e8570','#f5f0e8']},
+  {id:9,name:'Solid Mango Wood King Bed – Espresso Finish',size:'king',material:'mango-wood',storage:'no-storage',price:48000,orig:72000,img:'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=80',badge:null,colors:['#2c2c2c','#3a3027']},
+  {id:10,name:'Queen Hydraulic Bed with Upholstered Headboard',size:'queen',material:'engineered-wood',storage:'hydraulic',price:34000,orig:56000,img:'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&q=80',badge:'bs',colors:['#c9a87c','#9e8570','#2c2c2c']},
+  {id:11,name:'Teak Single Bed with Pull-Out Drawer Storage',size:'single',material:'teak',storage:'drawer',price:18000,orig:28000,img:'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&q=80',badge:null,colors:['#6b4226','#c9a87c']},
+  {id:12,name:'Sheesham Queen Bed – Danish Walnut No Storage',size:'queen',material:'sheesham',storage:'no-storage',price:36000,orig:58000,img:'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=600&q=80',badge:'new',colors:['#8b7355','#6b4226']},
+  {id:13,name:'Custom Handcrafted Bed – Your Size & Finish',size:'king',material:'solid-wood',storage:'hydraulic',price:0,orig:0,img:'https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=600&q=80',badge:'cus',colors:['#c9a87c','#6b4226','#2c2c2c']},
+  {id:14,name:'Engineered Wood Queen Bed Box Storage – Classic Walnut',size:'queen',material:'engineered-wood',storage:'box',price:19000,orig:32000,img:'https://images.unsplash.com/photo-1549187774-b4e9b0445b41?w=600&q=80',badge:'bs',colors:['#9e8570','#b5a08a','#2c2c2c']},
+  {id:15,name:'Solid Wood King Size Bed – Red Cedar Finish',size:'king',material:'solid-wood',storage:'no-storage',price:62000,orig:90000,img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',badge:'new',colors:['#8b3a22','#6b4226']},
+  {id:16,name:'Mango Wood Double Bed with Hydraulic Storage',size:'double',material:'mango-wood',storage:'hydraulic',price:27000,orig:42000,img:'https://images.unsplash.com/photo-1601628828688-632f38a5a7d0?w=600&q=80',badge:null,colors:['#c9a87c','#8b7355']},
+  {id:17,name:'Engineered Wood Single Bed Box Storage – White Finish',size:'single',material:'engineered-wood',storage:'box',price:11000,orig:18000,img:'https://images.unsplash.com/photo-1611195974226-a6a9be9dd763?w=600&q=80',badge:'new',colors:['#f5f0e8','#9e8570']},
+  {id:18,name:'Teak King Bed with Side Drawer & Headboard Storage',size:'king',material:'teak',storage:'drawer',price:72000,orig:105000,img:'https://images.unsplash.com/photo-1643916861110-3399cf8c45eb?w=600&q=80',badge:'bs',colors:['#6b4226','#8b7355','#c9a87c']},
+];
+
+function getWL(){try{return JSON.parse(localStorage.getItem('bhisez_wl')||'[]')}catch{return[]}}
+function saveWL(a){localStorage.setItem('bhisez_wl',JSON.stringify(a));updateBadge();render()}
+function removeFromWL(id){saveWL(getWL().filter(x=>x!==id))}
+function clearWishlist(){if(confirm('Remove all items from wishlist?'))saveWL([])}
+function updateBadge(){const c=getWL().length,b=document.getElementById('wishBadge');if(b){b.textContent=c;b.style.display=c>0?'flex':'none'}}
+
+function showToast(msg){const t=document.getElementById('wToast');t.textContent=msg;t.style.opacity='1';clearTimeout(t._t);t._t=setTimeout(()=>t.style.opacity='0',2200)}
+
+function render(){
+  const wl=getWL();
+  const items=ALL_PRODUCTS.filter(p=>wl.includes(p.id));
+  const count=document.getElementById('wlCount');
+  const clearBtn=document.getElementById('clearAllBtn');
+  if(count)count.textContent=items.length?`(${items.length} items)`:'';
+  if(clearBtn)clearBtn.style.display=items.length?'block':'none';
+  updateBadge();
+
+  const wrap=document.getElementById('gridWrap');
+
+  if(!items.length){
+    wrap.innerHTML=`<div class="empty-state">
+      <span class="empty-icon">🤍</span>
+      <h2>Your wishlist is empty</h2>
+      <p>Save items you love by tapping the heart icon on any product. They'll appear here for easy access.</p>
+      <a href="beds.html" class="shop-btn">Browse Beds →</a>
+    </div>`;
+    return;
+  }
+
+  wrap.innerHTML=`<div class="pgrid" id="prodGrid">${items.map((p,i)=>{
+    const wa='https://wa.me/919999999999?text='+encodeURIComponent('Hi, I am interested in '+p.name+'. Please share pricing and availability.');
+    const disc=p.orig>0?Math.round((1-p.price/p.orig)*100):0;
+
+    let badgeHtml='';
+    if(p.badge==='bs')badgeHtml='<div class="pc-badge badge-bs">Bestseller</div>';
+    else if(p.badge==='new')badgeHtml='<div class="pc-badge badge-new">New Arrivals</div>';
+    else if(p.badge==='cus')badgeHtml='<div class="pc-badge badge-cus">Custom</div>';
+
+    const imgHtml=p.img?`<img src="${p.img}" alt="${p.name}" loading="lazy"/>`:'';
+
+    let priceHtml='';
+    if(!p.price){
+      priceHtml='<div class="pc-prices"><span class="pc-enq">Get Custom Quote</span></div>';
+    } else {
+      priceHtml=`<div class="pc-prices">
+        <span class="pc-now">₹${p.price.toLocaleString('en-IN')}</span>
+        ${p.orig?`<span class="pc-was">₹${p.orig.toLocaleString('en-IN')}</span>`:''}
+        ${disc?`<span class="pc-off">${disc}% OFF</span>`:''}
+      </div>`;
+    }
+
+    let swatchHtml='';
+    if(p.colors&&p.colors.length){
+      const max=Math.min(p.colors.length,3);
+      swatchHtml='<div class="pc-swatches">'+
+        p.colors.slice(0,max).map((c,ci)=>`<span class="sw${ci===0?' on':''}" style="background:${c}"></span>`).join('')+
+        (p.colors.length>3?`<span class="sw-more">+${p.colors.length-3}</span>`:'')+
+      '</div>';
+    }
+
+    const delay=`d${(i%4)+1}`;
+    return `<div class="pc sr ${delay}" onclick="location.href='Beds.html'">
+      <div class="pc-img">
+        ${imgHtml}
+        ${badgeHtml}
+        <button class="pc-heart" onclick="event.stopPropagation();doRemove(${p.id})" title="Remove from wishlist">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#e74c3c" stroke="#e74c3c" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </button>
+        <a class="pc-wa" href="${wa}" target="_blank" onclick="event.stopPropagation()">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Enquire on WhatsApp
+        </a>
+      </div>
+      <div class="pc-body">
+        <p class="pc-brand">Bhise'z Ferniture</p>
+        <p class="pc-name">${p.name}</p>
+        ${priceHtml}
+        ${swatchHtml}
+      </div>
+      <div class="pc-remove" onclick="event.stopPropagation();doRemove(${p.id})">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+        Remove
+      </div>
+    </div>`;
+  }).join('')}</div>`;
+
+  requestAnimationFrame(()=>document.querySelectorAll('.pc.sr:not(.visible)').forEach(el=>sro.observe(el)));
+}
+
+function doRemove(id){
+  removeFromWL(id);
+  showToast('🤍 Removed from Wishlist');
+}
+
+const sro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');sro.unobserve(e.target)}});
+},{threshold:.06});
+
+updateBadge();
+render();
+</script>
+</body>
+</html>

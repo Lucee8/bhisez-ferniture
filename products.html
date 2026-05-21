@@ -3,586 +3,611 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Products | Bhise'z Ferniture</title>
-  <meta name="description" content="Browse our full furniture collection – sofas, beds, mandirs, wardrobes, dining tables, safety doors and more."/>
+  <title>All Beds | Bhise'z Ferniture</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/style.css"/>
-  <link rel="stylesheet" href="css/animations.css"/>
-  <link rel="stylesheet" href="css/responsive.css"/>
-  <style>
-    body { background: #f7f7f7; color: #222; }
-
-    /* Navbar light override */
-    .navbar {
-      background: #fff !important;
-      border-bottom: 1px solid #eee !important;
-    }
-    .navbar .logo-main {
-      background: none;
-      -webkit-text-fill-color: #111;
-      color: #111;
-      animation: none;
-    }
-    .nav-links a { color: #555 !important; }
-    .nav-links a:hover, .nav-links a.active { color: #222 !important; }
-    .hamburger span { background: #222 !important; }
-    .btn-whatsapp { color: #fff !important; }
-
-    /* Mobile top bar */
-    .mobile-topbar {
-      display: none;
-      background: #fff;
-      border-bottom: 1px solid #eee;
-      padding: 0.75rem 1rem;
-      align-items: center;
-      gap: 0.75rem;
-      position: sticky;
-      top: 0;
-      z-index: 200;
-    }
-    .mobile-topbar .back-btn {
-      background: none; border: none; cursor: pointer; padding: 0;
-      display: flex; align-items: center; color: #222;
-    }
-    .mobile-topbar .title-block { flex: 1; }
-    .mobile-topbar .title-block h2 { font-size: 0.95rem; font-weight: 600; color: #222; margin: 0; font-family: var(--font-body); }
-    .mobile-topbar .title-block p  { font-size: 0.7rem; color: #999; margin: 0; }
-    .mobile-topbar .icons { display: flex; gap: 0.9rem; align-items: center; }
-    .mobile-topbar .icons button, .mobile-topbar .icons a {
-      background: none; border: none; cursor: pointer; color: #333;
-      display: flex; align-items: center;
-    }
-
-    /* Layout */
-    .products-page-wrap {
-      padding-top: 100px;
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      gap: 0;
-    }
-
-    /* Sidebar */
-    .filter-sidebar {
-      width: 220px;
-      flex-shrink: 0;
-      background: #fff;
-      border-right: 1px solid #eee;
-      padding: 1.5rem 1rem;
-      align-self: flex-start;
-      position: sticky;
-      top: 72px;
-    }
-    .filter-sidebar .filter-heading {
-      font-size: 0.68rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #888;
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-    }
-    .filter-list { list-style: none; padding: 0; margin: 0 0 1.5rem; }
-    .filter-list li { margin-bottom: 2px; }
-    .filter-list button {
-      width: 100%; text-align: left;
-      padding: 0.5rem 0.7rem;
-      font-size: 0.87rem; color: #444;
-      border-radius: 6px;
-      font-family: var(--font-body);
-      background: transparent; border: none; cursor: pointer;
-      transition: background 0.15s, color 0.15s;
-    }
-    .filter-list button:hover { background: #fef9ef; color: #b8860b; }
-    .filter-list button.active { background: #fef9ef; color: #b8860b; font-weight: 500; }
-    .filter-divider { border: none; border-top: 1px solid #eee; margin: 0.75rem 0 1rem; }
-    .sidebar-wa-btn {
-      display: block; background: #25D366; color: #fff !important;
-      text-align: center; padding: 0.7rem; border-radius: 8px;
-      font-size: 0.8rem; font-weight: 500; margin-top: 1rem;
-      transition: opacity 0.2s;
-    }
-    .sidebar-wa-btn:hover { opacity: 0.9; }
-
-    /* Main */
-    .products-content { flex: 1; padding: 1rem 1.25rem 6rem; min-width: 0; }
-
-    /* Search bar */
-    .search-row {
-      position: relative; margin-bottom: 0.75rem;
-    }
-    .search-row input {
-      width: 100%; padding: 0.65rem 1rem 0.65rem 2.6rem;
-      border: 1px solid #ddd; border-radius: 8px;
-      font-size: 0.88rem; font-family: var(--font-body);
-      color: #333; background: #fff; outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .search-row input:focus { border-color: #C8973A; box-shadow: 0 0 0 3px rgba(200,151,58,0.1); }
-    .search-row svg { position: absolute; left: 0.8rem; top: 50%; transform: translateY(-50%); color: #bbb; }
-
-    /* Sort row */
-    .sort-row {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 0.75rem; padding-bottom: 0.5rem;
-    }
-    .sort-row .count { font-size: 0.82rem; color: #888; }
-    .sort-row select {
-      font-size: 0.8rem; color: #444;
-      border: 1px solid #ddd; border-radius: 6px;
-      padding: 0.3rem 0.7rem;
-      background: #fff; font-family: var(--font-body);
-      cursor: pointer; outline: none;
-    }
-
-    /* ═══════════════════════════════
-       URBAN LADDER STYLE PRODUCT CARDS
-       ═══════════════════════════════ */
-    .ul-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-    }
-
-    .ul-card {
-      background: #fff;
-      border: 0.5px solid #e5e5e5;
-      position: relative;
-      cursor: pointer;
-      transition: box-shadow 0.25s;
-      display: flex;
-      flex-direction: column;
-    }
-    .ul-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.1); z-index: 1; }
-
-    /* Card image */
-    .ul-card-img-wrap {
-      position: relative;
-      aspect-ratio: 1 / 1;
-      background: #f3efe9;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-    .ul-card-img-wrap img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-    .ul-card:hover .ul-card-img-wrap img { transform: scale(1.05); }
-
-    /* Placeholder */
-    .ul-img-ph {
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 0.5rem; background: #f3efe9;
-    }
-    .ul-img-ph .ph-icon { font-size: 2.5rem; opacity: 0.25; }
-    .ul-img-ph span { font-size: 0.68rem; color: #bbb; letter-spacing: 0.1em; text-transform: uppercase; }
-
-    /* Badge */
-    .ul-card-badge {
-      position: absolute; top: 0; left: 0;
-      padding: 0.22rem 0.55rem;
-      font-size: 0.65rem; font-weight: 700;
-      letter-spacing: 0.05em; color: #fff;
-      border-radius: 0 0 5px 0; z-index: 2;
-    }
-    .badge-new    { background: #e07b39; }
-    .badge-hot    { background: #e07b39; }
-    .badge-sale   { background: #27ae60; }
-    .badge-custom { background: #7d5a9e; }
-
-    /* Heart button */
-    .ul-heart {
-      position: absolute; top: 0.55rem; right: 0.55rem;
-      width: 30px; height: 30px;
-      background: rgba(255,255,255,0.92);
-      border-radius: 50%; border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      z-index: 2; transition: transform 0.2s, background 0.2s;
-      backdrop-filter: blur(4px);
-    }
-    .ul-heart:hover { transform: scale(1.18); background: #fff; }
-    .ul-heart.liked svg { fill: #e74c3c; stroke: #e74c3c; }
-
-    /* WhatsApp hover CTA */
-    .ul-card-wa {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      background: #25D366; color: #fff;
-      font-size: 0.7rem; font-weight: 600;
-      letter-spacing: 0.04em; text-align: center;
-      padding: 0.4rem 0.5rem;
-      display: flex; align-items: center; justify-content: center; gap: 0.3rem;
-      opacity: 0; transform: translateY(3px);
-      transition: opacity 0.2s, transform 0.2s;
-      z-index: 3;
-      text-decoration: none;
-    }
-    .ul-card:hover .ul-card-wa { opacity: 1; transform: translateY(0); }
-
-    /* Card body */
-    .ul-card-body {
-      padding: 0.65rem 0.75rem 0.9rem;
-      flex: 1;
-      display: flex; flex-direction: column;
-    }
-    .ul-card-brand {
-      font-size: 0.65rem; color: #aaa; font-weight: 400;
-      margin-bottom: 0.2rem;
-    }
-    .ul-card-name {
-      font-size: 0.82rem; color: #222; font-weight: 400;
-      line-height: 1.35; margin-bottom: 0.55rem;
-      display: -webkit-box; -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical; overflow: hidden;
-      flex: 1;
-    }
-    .ul-card-prices {
-      display: flex; align-items: center;
-      gap: 0.35rem; flex-wrap: wrap;
-      margin-bottom: 0.5rem;
-    }
-    .price-now   { font-size: 0.88rem; font-weight: 700; color: #111; }
-    .price-was   { font-size: 0.73rem; color: #bbb; text-decoration: line-through; }
-    .price-off   { font-size: 0.7rem; font-weight: 600; color: #27ae60; }
-    .price-enquire { font-size: 0.82rem; font-weight: 600; color: #9A7228; }
-
-    /* Color swatches */
-    .ul-card-swatches {
-      display: flex; align-items: center; gap: 0.3rem;
-    }
-    .swatch {
-      width: 15px; height: 15px; border-radius: 50%;
-      border: 1.5px solid #e0e0e0; cursor: pointer;
-      transition: transform 0.15s, border-color 0.15s; flex-shrink: 0;
-    }
-    .swatch:hover { transform: scale(1.3); border-color: #999; }
-    .swatch.on { border-color: #555; border-width: 2px; }
-    .swatch-more { font-size: 0.68rem; color: #888; font-weight: 500; }
-
-    /* ─ Empty state ─ */
-    .empty-state {
-      grid-column: 1/-1; text-align: center;
-      padding: 4rem 1rem; color: #bbb;
-    }
-    .empty-state p { font-size: 0.88rem; margin-top: 0.5rem; }
-
-    /* ─ Bottom mobile bar ─ */
-    .mob-bottom-bar {
-      display: none;
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: #fff; border-top: 1px solid #eee;
-      z-index: 400; box-shadow: 0 -2px 12px rgba(0,0,0,0.07);
-    }
-    .mob-bottom-bar-inner {
-      display: flex;
-    }
-    .mob-bar-btn {
-      flex: 1; border: none; background: none;
-      padding: 0.65rem 0.5rem; cursor: pointer;
-      display: flex; flex-direction: column;
-      align-items: center; gap: 0.2rem;
-      font-size: 0.68rem; font-weight: 600;
-      letter-spacing: 0.06em; color: #444;
-      font-family: var(--font-body);
-      border-right: 1px solid #eee;
-    }
-    .mob-bar-btn:last-child { border-right: none; }
-    .mob-bar-btn svg { width: 17px; height: 17px; }
-
-    /* ─ Filter sheet ─ */
-    .sheet-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.4); z-index: 600;
-    }
-    .sheet-overlay.on { display: block; }
-    .filter-sheet {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: #fff; border-radius: 16px 16px 0 0;
-      padding: 1rem 1.25rem 2rem;
-      z-index: 700; max-height: 70vh; overflow-y: auto;
-      transform: translateY(100%);
-      transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
-    }
-    .filter-sheet.on { transform: translateY(0); }
-    .sheet-handle { width: 36px; height: 4px; background: #ddd; border-radius: 2px; margin: 0 auto 1rem; }
-    .sheet-title { font-size: 0.92rem; font-weight: 600; color: #222; margin-bottom: 0.85rem; font-family: var(--font-body); }
-    .sheet-cats { display: flex; flex-wrap: wrap; gap: 0.55rem; }
-    .sheet-cat-btn {
-      padding: 0.45rem 1rem; border: 1px solid #ddd; border-radius: 50px;
-      font-size: 0.8rem; color: #444; font-family: var(--font-body);
-      background: #fff; cursor: pointer; transition: all 0.15s;
-    }
-    .sheet-cat-btn.active { background: #fef9ef; border-color: #C8973A; color: #b8860b; font-weight: 500; }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .filter-sidebar { display: none; }
-      .products-content { padding: 0 0 5rem; }
-      .sort-row, .search-row { padding: 0 0.75rem; }
-      .sort-row { margin-bottom: 0; padding-top: 0.5rem; }
-      .search-row { margin-bottom: 0.5rem; }
-      .mob-bottom-bar { display: block; }
-      .mobile-topbar { display: flex; }
-
-      /* Hide desktop navbar on mobile products page */
-      .navbar { display: none; }
-    }
-    @media (min-width: 1024px) {
-      .ul-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/Products.css">
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
 
-  <!-- DESKTOP NAVBAR -->
-  <nav class="navbar" id="navbar">
-    <div class="nav-inner">
-      <a href="index.html" class="logo">
-        <span class="logo-main">Bhise'z</span>
-        <span class="logo-sub">FERNITURE</span>
-      </a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="products.html" class="active">Products</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <div style="flex:1;max-width:320px;margin:0 1.5rem;position:relative;">
-        <input type="text" id="desktopSearch" placeholder="Search furniture..."
-          style="width:100%;padding:0.5rem 1rem 0.5rem 2.3rem;border:1px solid #ddd;border-radius:8px;font-size:0.85rem;font-family:'Outfit',sans-serif;color:#333;outline:none;background:#f7f7f7;">
-        <svg style="position:absolute;left:0.7rem;top:50%;transform:translateY(-50%);color:#aaa;" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      </div>
-      <a href="https://wa.me/919999999999" class="btn-whatsapp" target="_blank">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        WhatsApp
-      </a>
-      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
-    </div>
-  </nav>
+<div id="wToast"></div>
 
-  <!-- MOBILE TOP BAR -->
-  <div class="mobile-topbar" id="mobileTopbar">
-    <button class="back-btn" onclick="history.back()">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+<!-- TICKER -->
+<!-- <div class="ticker">🎉 Grand Sale — Up to 40% OFF! Use code <strong>BHISEZ40</strong> <a href="#">Shop Now →</a></div> -->
+
+<!-- Navbar -->
+    <!-- <div id="navbar"></div> -->
+    
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-top">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-box">B</div>
+      <div class="logo-words"><b>Bhise'z</b><small>Ferniture</small></div>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Visit Showroom</a>
+    </div>
+    <div class="nav-search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="navSearch" placeholder="Search beds, sofas, mandirs..."/>
+    </div>
+    <div class="nav-icons">
+      <button class="ni mob-search-toggle" id="navMobSearchBtn" title="Search" style="display:none">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+      <a href="contact.html" class="ni" title="Home">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </a>
+      <a href="contact.html" class="ni" title="Account">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <a href="wishlist.html" class="ni" title="Wishlist">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="badge" id="wishBadge" style="display:none">0</span>
+      </a>
+    </div>
+  </div>
+  <div class="nav-cats">
+    <div class="cats-wrap">
+      <a href="#">New Arrivals</a>
+      <a href="#">Deal Zone</a>
+      <a href="#">Sofas &amp; Recliners</a>
+      <a href="#">Living</a>
+      <a href="#" class="on">Bedroom</a>
+      <a href="#" >Dining &amp; Kitchen</a>
+      <a href="#">Mandirs</a>
+      <a href="#">Doors</a>
+      <a href="#">Custom Furniture</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE NAVBAR SEARCH BAR (drops below navbar on mobile) -->
+<div id="navMobSearchBar" style="display:none;background:#fff;border-bottom:1px solid var(--border);padding:.5rem .85rem;position:sticky;top:88px;z-index:599">
+  <div style="position:relative">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:.65rem;top:50%;transform:translateY(-50%);color:#ccc;pointer-events:none"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input id="navMobSearchInput" type="text" placeholder="Search beds..." style="width:100%;padding:.48rem 1rem .48rem 2.2rem;border:1px solid var(--border);border-radius:6px;background:var(--bg);font-size:.84rem;color:var(--text);outline:none;font-family:var(--font)"/>
+  </div>
+</div>
+
+<!-- BREADCRUMB -->
+<div class="bc-bar">
+  <div class="bc-inner">
+    <div class="pg-title">
+      <h1 style="display:inline">Beds</h1>
+      <span class="pg-count" id="pageCount">0 Products</span>
+    </div>
+    <div class="bc">
+      <a href="index.html">Home</a><span>›</span>
+      <a href="#">Products</a><span>›</span>
+      <span style="color:var(--text);font-weight:500">All Beds</span>
+    </div>
+  </div>
+</div>
+
+<!-- TOP FILTER BAR -->
+<div class="tfbar" id="tfbar">
+  <div class="tfbar-inner">
+
+    <div class="tfi" id="tfAll" onclick="clearAll()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      ALL FILTERS <div class="tfi-dot"></div>
+    </div>
+
+    <div class="tfi" id="tf-material" onclick="toggleDD(this)">
+      PRIMARY MATERIAL <div class="tfi-dot"></div>
+      <svg class="chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      <div class="tfi-dd" onclick="event.stopPropagation()">
+        <div class="dd-row"><input type="checkbox" data-filter="material" data-val="solid-wood" id="fsw"><label for="fsw">Solid Wood</label><span class="fct">(18)</span></div>
+        <div class="dd-row"><input type="checkbox" data-filter="material" data-val="engineered-wood" id="few"><label for="few">Engineered Wood</label><span class="fct">(24)</span></div>
+        <div class="dd-row"><input type="checkbox" data-filter="material" data-val="teak" id="ftk"><label for="ftk">Teak</label><span class="fct">(11)</span></div>
+        <div class="dd-row"><input type="checkbox" data-filter="material" data-val="mango-wood" id="fmw"><label for="fmw">Mango Wood</label><span class="fct">(9)</span></div>
+        <div class="dd-row"><input type="checkbox" data-filter="material" data-val="sheesham" id="fsh"><label for="fsh">Sheesham / Rosewood</label><span class="fct">(7)</span></div>
+      </div>
+    </div>
+
+    <div class="tfi" id="tf-size" onclick="toggleDD(this)">
+      BED SIZE <div class="tfi-dot"></div>
+      <svg class="chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      <div class="tfi-dd" onclick="event.stopPropagation()">
+        <div class="dd-row"><input type="checkbox" data-filter="size" data-val="king" id="fkg"><label for="fkg">King Size (180×200 cm)</label><span class="fct">(14)</span></div>
+        <div class="dd-row"><input type="checkbox" data-filter="size" data-val="queen" id="fqn"><label for="fqn">Queen Size (160×200 cm)</label><span class="fct">(22)</span></div>
+        <div class="dd-row"><input type="checkbox" data-filter="size" data-val="single" id="fsg"><label for="fsg">Single (90×200 cm)</label><span class="fct">(10)</span></div>
+        <div class="dd-row"><input type="checkbox" data-filter="size" data-val="double" id="fdb"><label for="fdb">Double (120×200 cm)</label><span class="fct">(8)</span></div>
+      </div>
+    </div>
+
+    <div class="tfi" id="tf-storage" onclick="toggleDD(this)">
+      STORAGE TYPE <div class="tfi-dot"></div>
+      <svg class="chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      <div class="tfi-dd" onclick="event.stopPropagation()">
+        <div class="dd-row"><input type="checkbox" data-filter="storage" data-val="hydraulic" id="fhy"><label for="fhy">Hydraulic Storage</label><span class="fct">(16)</span></div>
+        <div class="dd-row"><input type="checkbox" data-filter="storage" data-val="box" id="fbx"><label for="fbx">Box Storage</label><span class="fct">(12)</span></div>
+        <div class="dd-row"><input type="checkbox" data-filter="storage" data-val="drawer" id="fdr"><label for="fdr">Drawer Storage</label><span class="fct">(9)</span></div>
+        <div class="dd-row"><input type="checkbox" data-filter="storage" data-val="no-storage" id="fns"><label for="fns">Without Storage</label><span class="fct">(8)</span></div>
+      </div>
+    </div>
+
+    <div class="tfi" id="tf-price" onclick="toggleDD(this)">
+      PRICE RANGE <div class="tfi-dot"></div>
+      <svg class="chev" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      <div class="tfi-dd" onclick="event.stopPropagation()">
+        <div class="dd-row"><input type="checkbox" data-filter="price" data-val="under10k" id="fp1"><label for="fp1">Under ₹10,000</label></div>
+        <div class="dd-row"><input type="checkbox" data-filter="price" data-val="10k-25k" id="fp2"><label for="fp2">₹10,000 – ₹25,000</label></div>
+        <div class="dd-row"><input type="checkbox" data-filter="price" data-val="25k-50k" id="fp3"><label for="fp3">₹25,000 – ₹50,000</label></div>
+        <div class="dd-row"><input type="checkbox" data-filter="price" data-val="50k-75k" id="fp4"><label for="fp4">₹50,000 – ₹75,000</label></div>
+        <div class="dd-row"><input type="checkbox" data-filter="price" data-val="75k+" id="fp5"><label for="fp5">Above ₹75,000</label></div>
+      </div>
+    </div>
+
+    <div class="tf-space"></div>
+    <div class="tf-sort">
+      SORT BY
+      <select class="sort-sel" id="sortSel">
+        <option value="default">Relevance</option>
+        <option value="price-asc">Price: Low → High</option>
+        <option value="price-desc">Price: High → Low</option>
+        <option value="disc">Biggest Discount</option>
+        <option value="name">Name: A–Z</option>
+      </select>
+    </div>
+  </div>
+  <div class="chips-row" id="chipsRow"></div>
+</div>
+
+<!-- PRODUCTS -->
+<div class="pwrap">
+  <div class="res-row" id="resCount"></div>
+  <div class="pgrid" id="prodGrid"></div>
+  <div class="smwrap" id="smWrap" style="display:none">
+    <button class="smbtn" id="smBtn">Show More
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
-    <div class="title-block">
-      <h2 id="mobileTitle">All Products</h2>
-      <p id="mobileCount">Loading...</p>
-    </div>
-    <div class="icons">
-      <button onclick="document.getElementById('mobSearchBox').classList.toggle('mob-hidden')" aria-label="Search">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      </button>
-      <a href="contact.html">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      </a>
-      <button>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      </button>
-      <a href="contact.html">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-      </a>
-    </div>
   </div>
+</div>
 
-  <!-- MOBILE INLINE SEARCH -->
-  <div id="mobSearchBox" class="mob-hidden" style="background:#fff;border-bottom:1px solid #eee;padding:0.5rem 0.75rem;">
-    <div class="search-row" style="margin:0;">
-      <input type="text" id="mobSearchInput" placeholder="Search furniture..."/>
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-    </div>
-  </div>
-
-  <!-- PAGE WRAP -->
-  <div class="products-page-wrap">
-
-    <!-- SIDEBAR (desktop) -->
-    <aside class="filter-sidebar">
-      <p class="filter-heading">Categories</p>
-      <ul class="filter-list" id="sidebarList">
-        <li><button class="active" data-filter="all">All Products</button></li>
-        <li><button data-filter="living">Living Room</button></li>
-        <li><button data-filter="bedroom">Bedroom</button></li>
-        <li><button data-filter="dining">Dining &amp; Kitchen</button></li>
-        <li><button data-filter="mandir">Home Mandirs</button></li>
-        <li><button data-filter="doors">Doors &amp; Safety</button></li>
-        <li><button data-filter="custom">Custom Orders</button></li>
-      </ul>
-      <hr class="filter-divider"/>
-      <p class="filter-heading">Price Range</p>
-      <ul class="filter-list" id="priceList">
-        <li><button class="active" data-price="all">All Prices</button></li>
-        <li><button data-price="under10k">Under ₹10,000</button></li>
-        <li><button data-price="10k-25k">₹10,000 – ₹25,000</button></li>
-        <li><button data-price="25k-50k">₹25,000 – ₹50,000</button></li>
-        <li><button data-price="50k+">₹50,000+</button></li>
-      </ul>
-      <hr class="filter-divider"/>
-      <a href="https://wa.me/919999999999?text=Hi%2C%20I%20want%20a%20custom%20furniture%20order" class="sidebar-wa-btn" target="_blank">
-        💬 Custom Order on WhatsApp
-      </a>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <div class="products-content">
-      <!-- Sort bar -->
-      <div class="sort-row">
-        <span class="count" id="countLabel">Loading...</span>
-        <select id="sortSel">
-          <option value="default">Sort: Relevance</option>
-          <option value="price-asc">Price: Low → High</option>
-          <option value="price-desc">Price: High → Low</option>
-          <option value="name">Name A–Z</option>
-        </select>
-      </div>
-
-      <!-- Desktop search -->
-      <div class="search-row" id="deskSearchRow" style="display:none;"></div>
-
-      <!-- Product Grid -->
-      <div class="ul-grid" id="productGrid">
-        <!-- Filled by products.js -->
-      </div>
-    </div>
-  </div>
-
-  <!-- MOBILE BOTTOM BAR -->
-  <div class="mob-bottom-bar">
-    <div class="mob-bottom-bar-inner">
-      <button class="mob-bar-btn" id="sortBarBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 6h18M7 12h10M11 18h2"/></svg>
-        SORT BY
-      </button>
-      <button class="mob-bar-btn" id="filterBarBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-        FILTERS
-      </button>
-      <button class="mob-bar-btn" id="catBarBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-        CATEGORY
-      </button>
-    </div>
-  </div>
-
-  <!-- FILTER SHEET (mobile) -->
-  <div class="sheet-overlay" id="sheetOverlay"></div>
-  <div class="filter-sheet" id="filterSheet">
-    <div class="sheet-handle"></div>
-    <p class="sheet-title">Filter by Category</p>
-    <div class="sheet-cats" id="sheetCats">
-      <button class="sheet-cat-btn active" data-filter="all">All</button>
-      <button class="sheet-cat-btn" data-filter="living">Living Room</button>
-      <button class="sheet-cat-btn" data-filter="bedroom">Bedroom</button>
-      <button class="sheet-cat-btn" data-filter="dining">Dining</button>
-      <button class="sheet-cat-btn" data-filter="mandir">Mandirs</button>
-      <button class="sheet-cat-btn" data-filter="doors">Doors</button>
-      <button class="sheet-cat-btn" data-filter="custom">Custom</button>
-    </div>
-  </div>
-
-  <!-- FLOATING WHATSAPP -->
-  <a href="https://wa.me/919999999999?text=Hi%2C%20I%20want%20to%20enquire%20about%20furniture" class="whatsapp-float" target="_blank">
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<!-- MOBILE TOPBAR -->
+<div class="mob-topbar">
+  <a href="index.html" class="mob-logo">
+    <div class="logo-box">B</div>
+    <b>Bhise'z</b>
   </a>
+  <div class="mob-icons">
+    <button class="mni" id="mobSearchBtn" aria-label="Search">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    </button>
+    <a href="wishlist.html" class="mni" aria-label="Wishlist">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span class="badge" id="mobWishBadge" style="display:none">0</span>
+    </a>
+  </div>
+</div>
 
-  <style>.mob-hidden{display:none!important}</style>
-  <script src="js/main.js"></script>
-  <script src="js/products.js"></script>
-  <script src="js/animations.js"></script>
-  <script>
-  (function(){
-    // ── Sidebar category filter ──
-    document.querySelectorAll('#sidebarList button').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        document.querySelectorAll('#sidebarList button').forEach(b=>b.classList.remove('active'));
-        this.classList.add('active');
-        window.activeFilter = this.dataset.filter;
-        // sync sheet
-        document.querySelectorAll('.sheet-cat-btn').forEach(function(b){
-          b.classList.toggle('active', b.dataset.filter === window.activeFilter);
-        });
-        window.applyFilter && window.applyFilter();
-      });
-    });
+<!-- MOBILE SEARCH BAR (toggle) -->
+<div class="mob-searchbar" id="mobSearchBar">
+  <div class="si">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="mobSearchInput" placeholder="Search beds..."/>
+  </div>
+</div>
 
-    // ── Sheet category filter ──
-    document.querySelectorAll('.sheet-cat-btn').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        document.querySelectorAll('.sheet-cat-btn').forEach(b=>b.classList.remove('active'));
-        this.classList.add('active');
-        window.activeFilter = this.dataset.filter;
-        // sync sidebar
-        document.querySelectorAll('#sidebarList button').forEach(function(b){
-          b.classList.toggle('active', b.dataset.filter === window.activeFilter);
-        });
-        window.applyFilter && window.applyFilter();
-        closeSheet();
-      });
-    });
+<!-- MOBILE BOTTOM BAR -->
+<div class="mob-bar">
+  <div class="mob-bar-inner">
+    <button class="mbb" id="sortMobBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 6h18M7 12h10M11 18h2"/></svg>
+      SORT
+    </button>
+    <button class="mbb" id="filterMobBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+      FILTERS
+    </button>
+    <a href="wishlist.html" class="mbb">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      WISHLIST
+    </a>
+  </div>
+</div>
 
-    // ── Price filter ──
-    document.querySelectorAll('#priceList button').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        document.querySelectorAll('#priceList button').forEach(b=>b.classList.remove('active'));
-        this.classList.add('active');
-        window.priceFilter = this.dataset.price;
-        window.applyFilter && window.applyFilter();
-      });
-    });
+<!-- SHEET OVERLAY + PANEL -->
+<div class="sh-overlay" id="shOverlay"></div>
+<div class="sh" id="sh">
+  <div class="sh-handle-wrap"><span class="sh-handle"></span></div>
+  <div class="sh-head">
+    <span class="sh-title" id="shTitle">Filters</span>
+    <button class="sh-clear" id="shClearBtn">Clear All</button>
+  </div>
+  <div id="shBody"></div>
+  <button class="sh-apply" id="shApplyBtn">Apply</button>
+</div>
 
-    // ── Sort ──
-    document.getElementById('sortSel').addEventListener('change', function(){
-      window.sortOrder = this.value;
-      window.applyFilter && window.applyFilter();
-    });
+<!-- Floating WA -->
+<a href="https://wa.me/919999999999?text=Hi%2C%20I%20want%20to%20enquire%20about%20beds" target="_blank" class="wa-float"
+   style="position:fixed;bottom:1.5rem;right:1.25rem;width:50px;height:50px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.4);z-index:500" aria-label="WhatsApp">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
 
-    // ── Mobile search ──
-    document.getElementById('mobSearchInput').addEventListener('input', function(){
-      window.searchQuery = this.value;
-      window.applyFilter && window.applyFilter();
-    });
-    document.getElementById('desktopSearch').addEventListener('input', function(){
-      window.searchQuery = this.value;
-      window.applyFilter && window.applyFilter();
-    });
+<!-- ══ FOOTER ══ -->
+    <div id="footer"></div>
 
-    // ── Sheet open/close ──
-    var sheet   = document.getElementById('filterSheet');
-    var overlay = document.getElementById('sheetOverlay');
+<!-- ══ FLOATING WHATSAPP ══ -->
+<a href="https://wa.me/919999999999?text=Hi%2C%20I%20want%20to%20enquire%20about%20furniture" class="wa-float" target="_blank" aria-label="WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
 
-    function openSheet(){
-      sheet.classList.add('on');
-      overlay.classList.add('on');
-      document.body.style.overflow='hidden';
+<!-- ══ MOBILE BOTTOM NAV ══ -->
+<nav class="mob-nav">
+  <div class="mob-nav-inner">
+    <a href="index.html" class="mob-nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
+    </a>
+    <a href="products.html" class="mob-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Products
+    </a>
+    <a href="https://wa.me/919999999999" class="mob-nav-item" target="_blank">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="color:#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp
+    </a>
+    <a href="about.html" class="mob-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>About
+    </a>
+    <a href="contact.html" class="mob-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Contact
+    </a>
+  </div>
+</nav>
+
+<!-- ══ MOBILE DRAWER ══ -->
+<div class="mob-overlay" id="mobOverlay"></div>
+<div class="mob-drawer" id="mobDrawer">
+  <div class="mob-drawer-head">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-box">B</div>
+      <div class="logo-text"><span class="logo-main">Bhise'z</span><span class="logo-sub">Ferniture</span></div>
+    </a>
+    <button id="closeDrawer" style="color:#999;font-size:1.2rem;">✕</button>
+  </div>
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="products.html">🛋️ All Products</a>
+    <a href="products.html?cat=living">Living Room</a>
+    <a href="products.html?cat=bedroom">Bedroom</a>
+    <a href="products.html?cat=dining">Dining &amp; Kitchen</a>
+    <a href="products.html?cat=mandir">Home Mandirs</a>
+    <a href="products.html?cat=doors">Doors &amp; Safety</a>
+    <a href="products.html?cat=custom">Custom Furniture</a>
+    <a href="about.html">📖 About Us</a>
+    <a href="contact.html">📍 Visit Showroom</a>
+    <a href="https://wa.me/919999999999" target="_blank" style="color:#25D366;">💬 WhatsApp Us</a>
+  </nav>
+</div>
+
+
+<script src="/assets/js/include.js"></script>
+
+<script>
+const PRODUCTS=[
+  {id:1,name:'King Size Teak Wood Bed with Hydraulic Storage',size:'king',material:'teak',storage:'hydraulic',price:38000,orig:58000,img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80',badge:'bs',colors:['#6b4226','#3a3027','#c9a87c']},
+  {id:2,name:'Queen Size Engineered Wood Bed with Box Storage',size:'queen',material:'engineered-wood',storage:'box',price:22000,orig:38000,img:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=80',badge:'bs',colors:['#9e8570','#2c2c2c','#b5a08a']},
+  {id:3,name:'Solid Wood Queen Bed Without Storage – Amber Walnut',size:'queen',material:'solid-wood',storage:'no-storage',price:28000,orig:46000,img:'https://images.unsplash.com/photo-1588046130717-0eb0c9a3ba15?w=600&q=80',badge:'new',colors:['#c9a87c','#6b4226']},
+  {id:4,name:'Mango Wood King Bed with Drawer Storage',size:'king',material:'mango-wood',storage:'drawer',price:42000,orig:65000,img:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=600&q=80',badge:null,colors:['#6b4226','#8b7355']},
+  {id:5,name:'Engineered Wood Single Bed with Hydraulic Storage',size:'single',material:'engineered-wood',storage:'hydraulic',price:14000,orig:22000,img:'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&q=80',badge:'new',colors:['#3a3027','#9e8570','#f5f0e8']},
+  {id:6,name:'Sheesham Wood Queen Bed with Box Storage – Dark Finish',size:'queen',material:'sheesham',storage:'box',price:32000,orig:52000,img:'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&q=80',badge:'bs',colors:['#2c2c2c','#3a3027']},
+  {id:7,name:'Teak Queen Bed with Headboard Storage – Honey Finish',size:'queen',material:'teak',storage:'box',price:55000,orig:78000,img:'https://images.unsplash.com/photo-1484101403633-562f891dc89a?w=600&q=80',badge:null,colors:['#b5a08a','#c9a87c','#6b4226']},
+  {id:8,name:'Engineered Wood Double Bed Without Storage',size:'double',material:'engineered-wood',storage:'no-storage',price:12000,orig:20000,img:'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&q=80',badge:'new',colors:['#9e8570','#f5f0e8']},
+  {id:9,name:'Solid Mango Wood King Bed – Espresso Finish',size:'king',material:'mango-wood',storage:'no-storage',price:48000,orig:72000,img:'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600&q=80',badge:null,colors:['#2c2c2c','#3a3027']},
+  {id:10,name:'Queen Hydraulic Bed with Upholstered Headboard',size:'queen',material:'engineered-wood',storage:'hydraulic',price:34000,orig:56000,img:'https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=600&q=80',badge:'bs',colors:['#c9a87c','#9e8570','#2c2c2c']},
+  {id:11,name:'Teak Single Bed with Pull-Out Drawer Storage',size:'single',material:'teak',storage:'drawer',price:18000,orig:28000,img:'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&q=80',badge:null,colors:['#6b4226','#c9a87c']},
+  {id:12,name:'Sheesham Queen Bed – Danish Walnut No Storage',size:'queen',material:'sheesham',storage:'no-storage',price:36000,orig:58000,img:'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=600&q=80',badge:'new',colors:['#8b7355','#6b4226']},
+  {id:13,name:'Custom Handcrafted Bed – Your Size & Finish',size:'king',material:'solid-wood',storage:'hydraulic',price:0,orig:0,img:'https://images.unsplash.com/photo-1615874959474-d609969a20ed?w=600&q=80',badge:'cus',colors:['#c9a87c','#6b4226','#2c2c2c']},
+  {id:14,name:'Engineered Wood Queen Bed Box Storage – Classic Walnut',size:'queen',material:'engineered-wood',storage:'box',price:19000,orig:32000,img:'https://images.unsplash.com/photo-1549187774-b4e9b0445b41?w=600&q=80',badge:'bs',colors:['#9e8570','#b5a08a','#2c2c2c']},
+  {id:15,name:'Solid Wood King Size Bed – Red Cedar Finish',size:'king',material:'solid-wood',storage:'no-storage',price:62000,orig:90000,img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',badge:'new',colors:['#8b3a22','#6b4226']},
+  {id:16,name:'Mango Wood Double Bed with Hydraulic Storage',size:'double',material:'mango-wood',storage:'hydraulic',price:27000,orig:42000,img:'https://images.unsplash.com/photo-1601628828688-632f38a5a7d0?w=600&q=80',badge:null,colors:['#c9a87c','#8b7355']},
+  {id:17,name:'Engineered Wood Single Bed Box Storage – White Finish',size:'single',material:'engineered-wood',storage:'box',price:11000,orig:18000,img:'https://images.unsplash.com/photo-1611195974226-a6a9be9dd763?w=600&q=80',badge:'new',colors:['#f5f0e8','#9e8570']},
+  {id:18,name:'Teak King Bed with Side Drawer & Headboard Storage',size:'king',material:'teak',storage:'drawer',price:72000,orig:105000,img:'https://images.unsplash.com/photo-1643916861110-3399cf8c45eb?w=600&q=80',badge:'bs',colors:['#6b4226','#8b7355','#c9a87c']},
+];
+
+/* WISHLIST */
+function getWL(){try{return JSON.parse(localStorage.getItem('bhisez_wl')||'[]')}catch{return[]}}
+function saveWL(a){localStorage.setItem('bhisez_wl',JSON.stringify(a));updateBadge()}
+function isWL(id){return getWL().includes(id)}
+function toggleWL(id){let w=getWL();w.includes(id)?w=w.filter(x=>x!==id):w.push(id);saveWL(w)}
+function updateBadge(){
+  const c=getWL().length;
+  ['wishBadge','mobWishBadge'].forEach(id=>{
+    const b=document.getElementById(id);
+    if(b){b.textContent=c;b.style.display=c>0?'flex':'none'}
+  });
+}
+
+function showToast(msg){const t=document.getElementById('wToast');t.textContent=msg;t.style.opacity='1';clearTimeout(t._t);t._t=setTimeout(()=>t.style.opacity='0',2200)}
+
+/* STATE */
+let AF={},sort='default',q='',show=12;
+const PS=12;
+const FL={
+  material:{'solid-wood':'Solid Wood','engineered-wood':'Engineered Wood','teak':'Teak','mango-wood':'Mango Wood','sheesham':'Sheesham'},
+  size:{king:'King Size',queen:'Queen Size',single:'Single Bed',double:'Double Bed'},
+  storage:{hydraulic:'Hydraulic',box:'Box Storage',drawer:'Drawer','no-storage':'Without Storage'},
+  price:{'under10k':'< ₹10K','10k-25k':'₹10K–25K','25k-50k':'₹25K–50K','50k-75k':'₹50K–75K','75k+':'> ₹75K'},
+};
+
+function render(){
+  const list=doFilter();
+  const total=list.length;
+  const slice=list.slice(0,show);
+  document.getElementById('resCount').textContent='Showing '+total+' products';
+  document.getElementById('pageCount').textContent=total+' Products';
+  document.getElementById('smWrap').style.display=total>show?'block':'none';
+  updateDots();renderChips();
+
+  const grid=document.getElementById('prodGrid');
+  if(!slice.length){
+    grid.innerHTML='<div class="empty"><div class="ei">🛏️</div><p>No products match your filters.</p></div>';
+    return;
+  }
+
+  grid.innerHTML=slice.map((p,i)=>{
+    const wa='https://wa.me/919999999999?text='+encodeURIComponent('Hi, I am interested in '+p.name+'. Please share pricing and availability.');
+    const disc=p.orig>0?Math.round((1-p.price/p.orig)*100):0;
+    const wl=isWL(p.id);
+
+    let badgeHtml='';
+    if(p.badge==='bs')badgeHtml='<div class="pc-badge badge-bs">Bestseller</div>';
+    else if(p.badge==='new')badgeHtml='<div class="pc-badge badge-new">New Arrivals</div>';
+    else if(p.badge==='cus')badgeHtml='<div class="pc-badge badge-cus">Custom</div>';
+
+    const imgHtml=p.img?`<img src="${p.img}" alt="${p.name}" loading="lazy"/>`:'<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;opacity:.2">🛏️</div>';
+
+    let priceHtml='';
+    if(!p.price){
+      priceHtml='<div class="pc-prices"><span class="pc-enq">Get Custom Quote</span></div>';
+    } else {
+      priceHtml=`<div class="pc-prices">
+        <span class="pc-now">₹${p.price.toLocaleString('en-IN')}</span>
+        ${p.orig?`<span class="pc-was">₹${p.orig.toLocaleString('en-IN')}</span>`:''}
+        ${disc?`<span class="pc-off">${disc}% OFF</span>`:''}
+      </div>`;
     }
-    function closeSheet(){
-      sheet.classList.remove('on');
-      overlay.classList.remove('on');
-      document.body.style.overflow='';
-    }
-    overlay.addEventListener('click', closeSheet);
-    document.getElementById('filterBarBtn').addEventListener('click', openSheet);
-    document.getElementById('catBarBtn').addEventListener('click', openSheet);
 
-    // ── Sort sheet (reuse same sheet for sort on mobile) ──
-    document.getElementById('sortBarBtn').addEventListener('click', function(){
-      // Simple inline sort prompt using native select
-      var sel = document.getElementById('sortSel');
-      sel.focus();
+    let swatchHtml='';
+    if(p.colors&&p.colors.length){
+      const max=Math.min(p.colors.length,3);
+      swatchHtml='<div class="pc-swatches">'+
+        p.colors.slice(0,max).map((c,ci)=>`<span class="sw${ci===0?' on':''}" style="background:${c}" onclick="event.stopPropagation();swClick(this)"></span>`).join('')+
+        (p.colors.length>3?`<span class="sw-more">+${p.colors.length-3}</span>`:'')+
+      '</div>';
+    }
+
+    const delay=`d${(i%4)+1}`;
+    return `<div class="pc sr ${delay}" data-id="${p.id}" onclick="location.href='Beds.html'">
+      <div class="pc-img">
+        ${imgHtml}
+        ${badgeHtml}
+        <button class="pc-heart${wl?' wished':''}" onclick="event.stopPropagation();doHeart(this,${p.id})">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="${wl?'#e74c3c':'none'}" stroke="${wl?'#e74c3c':'#888'}" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+        </button>
+        <a class="pc-wa" href="${wa}" target="_blank" onclick="event.stopPropagation()">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Enquire on WhatsApp
+        </a>
+      </div>
+      <div class="pc-body">
+        <p class="pc-brand">Bhise'z Ferniture</p>
+        <p class="pc-name">${p.name}</p>
+        ${priceHtml}
+        ${swatchHtml}
+      </div>
+    </div>`;
+  }).join('');
+
+  requestAnimationFrame(()=>document.querySelectorAll('.pc.sr:not(.visible)').forEach(el=>sro.observe(el)));
+}
+
+function doHeart(btn,id){
+  toggleWL(id);
+  const wl=isWL(id);
+  btn.classList.toggle('wished',wl);
+  const svg=btn.querySelector('svg');
+  svg.setAttribute('fill',wl?'#e74c3c':'none');
+  svg.setAttribute('stroke',wl?'#e74c3c':'#888');
+  showToast(wl?'❤️ Added to Wishlist':'🤍 Removed from Wishlist');
+}
+
+function swClick(el){
+  el.closest('.pc-swatches').querySelectorAll('.sw').forEach(s=>s.classList.remove('on'));
+  el.classList.add('on');
+}
+
+function doFilter(){
+  let list=PRODUCTS.slice();
+  const sq=q.trim().toLowerCase();
+  if(sq)list=list.filter(p=>p.name.toLowerCase().includes(sq));
+  Object.keys(AF).forEach(key=>{
+    const vals=AF[key];if(!vals||!vals.size)return;
+    if(key==='price'){
+      list=list.filter(p=>[...vals].some(v=>{
+        if(v==='under10k')return p.price<10000;
+        if(v==='10k-25k')return p.price>=10000&&p.price<=25000;
+        if(v==='25k-50k')return p.price>25000&&p.price<=50000;
+        if(v==='50k-75k')return p.price>50000&&p.price<=75000;
+        if(v==='75k+')return p.price>75000;
+        return true;
+      }));
+    } else list=list.filter(p=>vals.has(p[key]));
+  });
+  if(sort==='price-asc')list.sort((a,b)=>a.price-b.price);
+  if(sort==='price-desc')list.sort((a,b)=>b.price-a.price);
+  if(sort==='disc')list.sort((a,b)=>((b.orig-b.price)/b.orig)-((a.orig-a.price)/a.orig));
+  if(sort==='name')list.sort((a,b)=>a.name.localeCompare(b.name));
+  return list;
+}
+
+/* Dropdowns */
+function toggleDD(el){
+  const was=el.classList.contains('open');
+  closeDD();
+  if(!was)el.classList.add('open');
+}
+function closeDD(){document.querySelectorAll('.tfi.open').forEach(x=>x.classList.remove('open'))}
+document.addEventListener('click',e=>{if(!e.target.closest('.tfi'))closeDD()});
+
+document.querySelectorAll('input[data-filter]').forEach(cb=>{
+  cb.addEventListener('change',function(){
+    const key=this.dataset.filter,val=this.dataset.val;
+    if(!AF[key])AF[key]=new Set();
+    this.checked?AF[key].add(val):AF[key].delete(val);
+    show=PS;render();
+  });
+});
+
+function removeFilter(key,val){
+  if(AF[key])AF[key].delete(val);
+  const cb=document.querySelector(`input[data-filter="${key}"][data-val="${val}"]`);
+  if(cb)cb.checked=false;
+  render();
+}
+
+function clearAll(){
+  AF={};
+  document.querySelectorAll('input[data-filter]').forEach(c=>c.checked=false);
+  show=PS;render();
+}
+
+function renderChips(){
+  const row=document.getElementById('chipsRow');
+  let h='';
+  Object.keys(AF).forEach(key=>{
+    if(!AF[key])return;
+    AF[key].forEach(v=>{
+      const l=(FL[key]&&FL[key][v])||v;
+      h+=`<div class="chip">${l}<button class="chip-x" onclick="removeFilter('${key}','${v}')">✕</button></div>`;
     });
+  });
+  row.innerHTML=h;
+}
 
-    // URL param for pre-selected category
-    var params = new URLSearchParams(window.location.search);
-    var cat = params.get('cat');
-    if(cat){
-      window.activeFilter = cat;
-      document.querySelectorAll('#sidebarList button, .sheet-cat-btn').forEach(function(b){
-        b.classList.toggle('active', b.dataset.filter === cat);
-      });
-    }
-  })();
-  </script>
+function updateDots(){
+  ['material','size','storage','price'].forEach(key=>{
+    const el=document.getElementById('tf-'+key);
+    if(el)el.classList.toggle('active',!!(AF[key]&&AF[key].size));
+  });
+  document.getElementById('tfAll').classList.toggle('active',Object.values(AF).some(s=>s&&s.size));
+}
+
+document.getElementById('sortSel').addEventListener('change',function(){sort=this.value;render()});
+document.getElementById('navSearch').addEventListener('input',function(){q=this.value;show=PS;render()});
+document.getElementById('smBtn').addEventListener('click',()=>{show+=PS;render();window.scrollBy({top:300,behavior:'smooth'})});
+
+/* Scroll reveal */
+const sro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');sro.unobserve(e.target)}});
+},{threshold:.06,rootMargin:'0px 0px -20px 0px'});
+
+window.addEventListener('scroll',()=>{
+  const nb=document.getElementById('navbar');
+  if(nb)nb.style.boxShadow=window.scrollY>5?'0 2px 12px rgba(0,0,0,.07)':'';
+},{passive:true});
+
+
+/* ===== MOBILE SEARCH TOGGLE (navbar icon) ===== */
+const navMobSearchBtn=document.getElementById('navMobSearchBtn');
+const navMobSearchBar=document.getElementById('navMobSearchBar');
+const navMobSearchInput=document.getElementById('navMobSearchInput');
+if(navMobSearchBtn){
+  navMobSearchBtn.addEventListener('click',()=>{
+    const isOpen=navMobSearchBar.style.display==='block';
+    navMobSearchBar.style.display=isOpen?'none':'block';
+    // Shift tfbar sticky top when search bar open (adds ~42px)
+    const tfbar=document.getElementById('tfbar');
+    if(tfbar)tfbar.style.top=isOpen?'88px':'130px';
+    if(!isOpen)setTimeout(()=>navMobSearchInput&&navMobSearchInput.focus(),60);
+  });
+}
+if(navMobSearchInput){
+  navMobSearchInput.addEventListener('input',function(){q=this.value;show=PS;render()});
+}
+
+/* ===== BOTTOM SHEET ===== */
+const shOverlay=document.getElementById('shOverlay');
+const sh=document.getElementById('sh');
+const shApplyBtn=document.getElementById('shApplyBtn');
+const shClearBtn=document.getElementById('shClearBtn');
+
+function openSheet(type){
+  sh.classList.add('on');shOverlay.classList.add('on');
+  document.body.style.overflow='hidden';
+  const title=document.getElementById('shTitle');
+  const body=document.getElementById('shBody');
+  if(type==='sort'){
+    title.textContent='Sort By';
+    shApplyBtn.style.display='none';
+    shClearBtn.style.display='none';
+    body.innerHTML=buildSortSheet();
+  } else {
+    title.textContent='Filters';
+    shApplyBtn.style.display='block';
+    shClearBtn.style.display='block';
+    body.innerHTML=buildFilterSheet();
+  }
+}
+function closeSheet(){
+  sh.classList.remove('on');shOverlay.classList.remove('on');
+  document.body.style.overflow='';
+}
+shOverlay.addEventListener('click',closeSheet);
+shApplyBtn.addEventListener('click',closeSheet);
+shClearBtn.addEventListener('click',()=>{clearAll();document.getElementById('shBody').innerHTML=buildFilterSheet()});
+
+document.getElementById('sortMobBtn').addEventListener('click',()=>openSheet('sort'));
+document.getElementById('filterMobBtn').addEventListener('click',()=>openSheet('filter'));
+
+function buildSortSheet(){
+  const opts=[{v:'default',l:'Relevance'},{v:'price-asc',l:'Price: Low → High'},{v:'price-desc',l:'Price: High → Low'},{v:'disc',l:'Biggest Discount'},{v:'name',l:'Name: A\u2013Z'}];
+  return opts.map(o=>`<div class="so-opt${sort===o.v?' on':''}" onclick="setSortMob('${o.v}')">${o.l}<div class="so-radio"></div></div>`).join('');
+}
+window.setSortMob=function(v){
+  sort=v;
+  const ss=document.getElementById('sortSel');if(ss)ss.value=v;
+  render();
+  document.getElementById('shBody').innerHTML=buildSortSheet();
+  setTimeout(closeSheet,280);
+};
+
+const FILTER_GROUPS=[
+  {key:'material',label:'Primary Material',opts:[{v:'solid-wood',l:'Solid Wood'},{v:'engineered-wood',l:'Engineered Wood'},{v:'teak',l:'Teak'},{v:'mango-wood',l:'Mango Wood'},{v:'sheesham',l:'Sheesham'}]},
+  {key:'size',label:'Bed Size',opts:[{v:'king',l:'King Size'},{v:'queen',l:'Queen Size'},{v:'single',l:'Single'},{v:'double',l:'Double'}]},
+  {key:'storage',label:'Storage Type',opts:[{v:'hydraulic',l:'Hydraulic'},{v:'box',l:'Box Storage'},{v:'drawer',l:'Drawer'},{v:'no-storage',l:'Without Storage'}]},
+  {key:'price',label:'Price Range',opts:[{v:'under10k',l:'Under \u20b910,000'},{v:'10k-25k',l:'\u20b910K\u2013\u20b925K'},{v:'25k-50k',l:'\u20b925K\u2013\u20b950K'},{v:'50k-75k',l:'\u20b950K\u2013\u20b975K'},{v:'75k+',l:'Above \u20b975K'}]},
+];
+function buildFilterSheet(){
+  return FILTER_GROUPS.map(g=>`
+    <div class="sg">
+      <button class="sg-head open" onclick="this.classList.toggle('open');this.nextElementSibling.classList.toggle('open')">
+        ${g.label}
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="sg-body open"><div class="sg-inner"><div class="spills">
+        ${g.opts.map(o=>{const on=AF[g.key]&&AF[g.key].has(o.v);return`<button class="spill${on?' on':''}" onclick="toggleSheetFilter('${g.key}','${o.v}',this)">${o.l}</button>`;}).join('')}
+      </div></div></div>
+    </div>`).join('');
+}
+window.toggleSheetFilter=function(key,val,btn){
+  btn.classList.toggle('on');
+  if(!AF[key])AF[key]=new Set();
+  btn.classList.contains('on')?AF[key].add(val):AF[key].delete(val);
+  const cb=document.querySelector('input[data-filter="'+key+'"][data-val="'+val+'"]');
+  if(cb)cb.checked=btn.classList.contains('on');
+  show=PS;render();
+};
+
+updateBadge();
+render();
+</script>
 </body>
 </html>

@@ -1,174 +1,1058 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About Us | Bhise'z Ferniture</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/style.css"/>
-  <link rel="stylesheet" href="css/animations.css"/>
-  <link rel="stylesheet" href="css/responsive.css"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | Bhisez Furniture</title>
+<link rel="stylesheet" href="css/index.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #E8B84B;
+    --gold-dark: #B8892A;
+    --wood: #6B3F1F;
+    --cream: #FAF7F2;
+    --dark: #1A1209;
+    --mid: #4A3728;
+    --muted: #8C7660;
+    --border: #E2D8CC;
+    --white: #FFFFFF;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+
+
+  /* ── HERO ── */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 560px;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    background: var(--dark);
+    padding: 80px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    border: 1px solid rgba(232,184,75,0.15);
+  }
+
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -80px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    border: 1px solid rgba(232,184,75,0.08);
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.05;
+    margin-bottom: 28px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.6);
+    max-width: 400px;
+    font-weight: 300;
+  }
+
+  .hero-right {
+    position: relative;
+    background: #2C1A0E;
+    overflow: hidden;
+    min-height: 300px;
+  }
+
+  .hero-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.85;
+    display: block;
+  }
+
+  .hero-badge {
+    position: absolute;
+    bottom: 36px;
+    left: 36px;
+    background: var(--gold);
+    color: var(--dark);
+    padding: 16px 24px;
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .hero-badge span {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  /* ── STATS ── */
+  .stats {
+    background: #fff;
+    padding: 48px 80px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stat {
+    text-align: center;
+    position: relative;
+    padding: 8px 0;
+  }
+
+  .stat + .stat::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 20%;
+    height: 60%;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 8px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── STORY ── */
+  .story {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  .story-img {
+    position: relative;
+    height: 600px;
+    overflow: hidden;
+  }
+
+  .story-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .story-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, transparent 60%, var(--cream));
+  }
+
+  .story-content {
+    padding: 80px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--cream);
+  }
+
+  .section-eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--wood);
+  }
+
+  .section-body {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 16px;
+  }
+
+  .divider {
+    width: 48px;
+    height: 3px;
+    background: var(--gold);
+    margin: 32px 0;
+  }
+
+  /* ── VALUES ── */
+  .values {
+    padding: 96px 80px;
+    background: #fff;
+  }
+
+  .values-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 64px;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .value-card {
+    background: #fff;
+    padding: 48px 40px;
+    transition: background 0.3s;
+  }
+
+  .value-card:hover { background: var(--cream); }
+
+  .value-icon {
+    width: 56px;
+    height: 56px;
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    flex-shrink: 0;
+  }
+
+  .value-icon svg {
+    width: 26px;
+    height: 26px;
+    stroke: var(--gold);
+    fill: none;
+    stroke-width: 1.5;
+  }
+
+  .value-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 14px;
+  }
+
+  .value-desc {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* ── TEAM ── */
+  .team {
+    padding: 96px 80px;
+    background: var(--cream);
+  }
+
+  .team-header {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto 64px;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  .team-card {
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .team-photo {
+    height: 260px;
+    background: var(--wood);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .team-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .team-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .team-photo-placeholder svg {
+    width: 80px;
+    height: 80px;
+    stroke: rgba(255,255,255,0.2);
+    fill: none;
+    stroke-width: 1;
+  }
+
+  .team-info {
+    padding: 20px 24px;
+    border-top: 3px solid var(--gold);
+  }
+
+  .team-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+
+  .team-role {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  /* ── SHOWROOMS ── */
+  .showrooms {
+    background: var(--dark);
+    padding: 96px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .showrooms-left .section-title { color: #fff; }
+  .showrooms-left .section-body { color: rgba(255,255,255,0.5); }
+
+  .showroom-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .showroom-card {
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 28px 32px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    align-items: start;
+    transition: border-color 0.3s;
+  }
+
+  .showroom-card:hover { border-color: var(--gold); }
+
+  .showroom-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--gold);
+    opacity: 0.4;
+    line-height: 1;
+  }
+
+  .showroom-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .showroom-detail {
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.8;
+  }
+
+  .showroom-detail strong {
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  /* ── CTA ── */
+  .cta {
+    padding: 96px 80px;
+    text-align: center;
+    background: #fff;
+  }
+
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 900;
+    color: var(--dark);
+    line-height: 1.1;
+    max-width: 640px;
+    margin: 0 auto 32px;
+  }
+
+  .cta-title em { font-style: italic; color: var(--gold); }
+
+  .cta-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--dark);
+    padding: 16px 36px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover { background: var(--gold-dark); transform: translateY(-2px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--dark);
+    padding: 16px 36px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1.5px solid var(--dark);
+    cursor: pointer;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-outline:hover { background: var(--dark); color: #fff; transform: translateY(-2px); }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--dark);
+    padding: 14px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .ticker-inner {
+    display: inline-flex;
+    gap: 0;
+    animation: ticker 30s linear infinite;
+  }
+
+  .ticker-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 40px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .ticker-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #0E0906;
+    padding: 40px 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-logo .logo-name { font-size: 18px; }
+  .footer-logo .logo-sub { color: rgba(255,255,255,0.25); }
+
+  .footer-copy {
+    font-size: 12px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.5px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  .footer-links a {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── WOOD STRIP ── */
+  .wood-strip {
+    height: 8px;
+    background: repeating-linear-gradient(
+      90deg,
+      #6B3F1F 0px, #7D4E28 12px,
+      #6B3F1F 12px, #5A3318 24px,
+      #7D4E28 24px, #6B3F1F 36px
+    );
+  }
+
+  /* WhatsApp FAB */
+  .whatsapp-fab {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    width: 56px;
+    height: 56px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    z-index: 999;
+    text-decoration: none;
+    transition: transform 0.2s;
+  }
+  .whatsapp-fab:hover { transform: scale(1.1); }
+
+  /* ═══════════════════════════════════════
+     RESPONSIVE BREAKPOINTS
+  ═══════════════════════════════════════ */
+
+  /* ── TABLET LARGE (≤1024px) ── */
+  @media (max-width: 1024px) {
+    nav { padding: 0 32px; }
+    .nav-links { gap: 20px; }
+    .nav-links a { font-size: 12px; }
+
+    .hero-left { padding: 60px 40px; }
+    .hero-title { font-size: 52px; }
+
+    .stats { padding: 40px 32px; }
+    .stat-number { font-size: 38px; }
+    .stat-label { font-size: 11px; }
+
+    .story-content { padding: 60px 40px; }
+    .section-title { font-size: 36px; }
+
+    .values { padding: 72px 40px; }
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .team { padding: 72px 40px; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .showrooms { padding: 72px 40px; gap: 40px; }
+
+    .cta { padding: 72px 40px; }
+    .cta-title { font-size: 44px; }
+
+    footer { padding: 40px 40px; }
+  }
+
+  /* ── TABLET (≤768px) ── */
+  @media (max-width: 768px) {
+    /* Nav: hide links, show hamburger */
+    nav { padding: 0 24px; height: 64px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    /* Hero: stack vertically */
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 56px 28px; order: 2; }
+    .hero-title { font-size: 44px; }
+    .hero-desc { font-size: 15px; max-width: 100%; }
+    .hero-right { min-height: 280px; order: 1; }
+    .hero-badge { bottom: 20px; left: 20px; padding: 12px 18px; }
+
+    /* Stats: 2 columns */
+    .stats { grid-template-columns: repeat(2, 1fr); padding: 40px 24px; gap: 0; }
+    .stat-number { font-size: 36px; }
+    .stat:nth-child(3)::before, .stat:nth-child(4)::before {
+      display: none;
+    }
+    .stat:nth-child(3), .stat:nth-child(4) {
+      padding-top: 32px;
+    }
+    .stat:nth-child(3)::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 50%;
+      height: 1px;
+      background: var(--border);
+    }
+    .stat:nth-child(2)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      background: var(--border);
+      display: none;
+    }
+    /* simpler: just add a top border on row 2 */
+    .stats-row2 { border-top: 1px solid var(--border); }
+
+    /* Story: stack */
+    .story { grid-template-columns: 1fr; }
+    .story-img { height: 300px; }
+    .story-img-overlay { background: linear-gradient(to bottom, transparent 60%, var(--cream)); }
+    .story-content { padding: 48px 28px; }
+
+    /* Values: 1 column */
+    .values { padding: 64px 24px; }
+    .values-grid { grid-template-columns: 1fr; }
+    .value-card { padding: 36px 28px; }
+
+    /* Team: 2 columns */
+    .team { padding: 64px 24px; }
+    .team-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .team-photo { height: 200px; }
+
+    /* Showrooms: stack */
+    .showrooms { grid-template-columns: 1fr; padding: 64px 24px; gap: 40px; }
+    .showroom-card { padding: 20px 24px; }
+    .showroom-num { font-size: 28px; }
+
+    /* CTA */
+    .cta { padding: 64px 24px; }
+    .cta-title { font-size: 36px; }
+
+    /* Footer */
+    footer {
+      padding: 36px 24px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .whatsapp-fab { bottom: 20px; right: 20px; width: 50px; height: 50px; }
+    .whatsapp-fab svg { width: 24px; height: 24px; }
+  }
+
+  /* ── MOBILE (≤480px) ── */
+  @media (max-width: 480px) {
+    nav { padding: 0 16px; }
+
+    .hero-left { padding: 44px 20px; }
+    .hero-title { font-size: 36px; }
+    .hero-desc { font-size: 14px; }
+    .eyebrow { font-size: 10px; letter-spacing: 2.5px; margin-bottom: 16px; }
+    .hero-right { min-height: 240px; }
+    .hero-badge { bottom: 16px; left: 16px; padding: 10px 14px; font-size: 11px; }
+
+    .stats { padding: 32px 20px; }
+    .stat-number { font-size: 30px; }
+    .stat-label { font-size: 10px; letter-spacing: 0.5px; }
+
+    .section-title { font-size: 28px; }
+    .section-eyebrow { font-size: 10px; letter-spacing: 3px; }
+
+    .story-content { padding: 40px 20px; }
+    .story-img { height: 240px; }
+
+    .values { padding: 48px 20px; }
+    .value-card { padding: 28px 20px; }
+    .value-title { font-size: 19px; }
+
+    .team { padding: 48px 20px; }
+    .team-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .team-photo { height: 160px; }
+    .team-photo-placeholder svg { width: 56px; height: 56px; }
+    .team-info { padding: 14px 16px; }
+    .team-name { font-size: 14px; }
+    .team-role { font-size: 10px; letter-spacing: 0.8px; }
+
+    .showrooms { padding: 48px 20px; gap: 32px; }
+    .showroom-card { padding: 16px 18px; gap: 14px; }
+    .showroom-num { font-size: 24px; }
+    .showroom-name { font-size: 17px; }
+    .showroom-detail { font-size: 12px; }
+
+    .cta { padding: 48px 20px; }
+    .cta-title { font-size: 30px; }
+    .btn-primary, .btn-outline { padding: 14px 24px; font-size: 13px; width: 100%; text-align: center; }
+    .cta-buttons { flex-direction: column; align-items: center; gap: 12px; }
+
+    footer { padding: 28px 20px; gap: 12px; }
+    .footer-copy { font-size: 11px; }
+    .footer-links { gap: 16px; }
+    .footer-links a { font-size: 11px; }
+
+    .team-header, .values-header { margin-bottom: 40px; }
+
+    .mobile-menu { padding: 88px 28px 40px; }
+    .mobile-menu a { font-size: 22px; }
+
+    .whatsapp-fab { bottom: 16px; right: 16px; }
+  }
+
+  /* ── Extra small (≤360px) ── */
+  @media (max-width: 360px) {
+    .hero-title { font-size: 30px; }
+    .cta-title { font-size: 26px; }
+    .team-grid { grid-template-columns: 1fr; }
+    .team-photo { height: 220px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ── Landscape mobile ── */
+  @media (max-width: 768px) and (orientation: landscape) {
+    .hero-right { min-height: 200px; }
+    .story-img { height: 220px; }
+    .team-grid { grid-template-columns: repeat(4, 1fr); }
+    .team-photo { height: 160px; }
+  }
+</style>
 </head>
 <body>
 
-  <nav class="navbar" id="navbar">
-    <div class="nav-inner">
-      <a href="index.html" class="logo">
-        <span class="logo-main">Bhise'z</span>
-        <span class="logo-sub">FERNITURE</span>
-      </a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="products.html">Products</a></li>
-        <li><a href="about.html" class="active">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-      <a href="https://wa.me/919999999999" class="btn-whatsapp" target="_blank">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        WhatsApp Us
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
-    </div>
-  </nav>
+<!-- Navbar -->
+    <div id="navbar"></div>
 
-  <section class="page-hero">
-    <div class="page-hero-content">
-      <p class="section-tag light">Our Story</p>
-      <h1 class="page-hero-title">About Bhise'z Ferniture</h1>
-    </div>
-  </section>
+<div class="wood-strip"></div>
 
-  <!-- STORY SECTION -->
-  <section class="section-pad">
-    <div class="container split-layout">
-      <div class="split-visual scroll-reveal">
-        <!-- <img src="images/showroom/showroom2.jpg" alt="Bhise'z Ferniture"> -->
-        <div class="img-placeholder tall"></div>
-      </div>
-      <div class="split-text scroll-reveal delay-2">
-        <p class="section-tag">Who We Are</p>
-        <h2 class="section-title">Born in Malvan,<br/><em>Built for Homes</em></h2>
-        <p class="body-text">
-          Bhise'z Ferniture started with a simple belief — every family deserves beautiful, well-made furniture they can afford. Founded in Malvan on the Konkan coast, we've been crafting furniture that stands the test of time.
-        </p>
-        <p class="body-text">
-          From traditional wooden mandirs to modern sofa sets, every piece is built by skilled craftsmen using quality materials. We take pride in our local roots and serve families across Sindhudurg, Goa, and Ratnagiri.
-        </p>
-        <p class="body-text">
-          Today we have two showrooms — in Malvan and Sukalwad — where you can see our full collection in person and speak with our team about custom orders.
-        </p>
-      </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="eyebrow">Est. 2010 · Malvan, Maharashtra</p>
+    <h1 class="hero-title">Crafted<br>with <em>Soul.</em><br>Built to Last.</h1>
+    <p class="hero-desc">We are more than a furniture brand. We are craftsmen who believe that every home deserves furniture that tells a story — forged from the finest sheesham wood, shaped by skilled hands.</p>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=80" alt="Bhisez showroom interior" />
+    <div class="hero-badge">
+      <span>Since</span>
+      2010
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- VALUES -->
-  <section class="section-pad bg-dark">
-    <div class="container">
-      <div class="section-header center scroll-reveal">
-        <p class="section-tag light">What We Stand For</p>
-        <h2 class="section-title light">Our Values</h2>
+<!-- STATS -->
+<section class="stats">
+  <div class="stat">
+    <div class="stat-number">15+</div>
+    <div class="stat-label">Years of Craft</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">2</div>
+    <div class="stat-label">Showrooms</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">5000+</div>
+    <div class="stat-label">Happy Homes</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">3</div>
+    <div class="stat-label">Districts Served</div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story">
+  <div class="story-img">
+    <img src="https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=800&q=80" alt="Woodcraft workshop" />
+    <div class="story-img-overlay"></div>
+  </div>
+  <div class="story-content">
+    <p class="section-eyebrow">Our Story</p>
+    <h2 class="section-title">From Workshop to <em>Your Home</em></h2>
+    <p class="section-body">Bhisez Furniture was born in the coastal heart of Malvan — where master craftsmen have shaped wood for generations. What started as a small workshop in 2010 has grown into one of Sindhudurg's most trusted names in solid wood furniture.</p>
+    <p class="section-body">Every piece we create begins with premium sheesham and teak timber, selected for grain, density, and longevity. Our karigar (artisans) — many of whom have been with us since day one — bring decades of woodworking tradition to every joint, every curve, and every finish.</p>
+    <div class="divider"></div>
+    <p class="section-body">We serve homes across Sindhudurg, Goa, and Ratnagiri. Walk into either of our showrooms and experience furniture that isn't just bought — it's inherited.</p>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="values-header">
+    <p class="section-eyebrow">What We Stand For</p>
+    <h2 class="section-title" style="font-size:38px;">Our <em>Principles</em></h2>
+  </div>
+  <div class="values-grid">
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       </div>
-      <div class="why-grid">
-        <div class="why-card dark scroll-reveal">
-          <div class="why-icon">🤝</div>
-          <h3>Trust</h3>
-          <p>We believe in honest pricing, no hidden costs, and doing exactly what we promise.</p>
-        </div>
-        <div class="why-card dark scroll-reveal delay-1">
-          <div class="why-icon">🎨</div>
-          <h3>Craftsmanship</h3>
-          <p>Every joint, every finish, every detail is given the care it deserves.</p>
-        </div>
-        <div class="why-card dark scroll-reveal delay-2">
-          <div class="why-icon">🏡</div>
-          <h3>Community</h3>
-          <p>We're proud to be a local business serving local families across the Konkan.</p>
-        </div>
-        <div class="why-card dark scroll-reveal delay-3">
-          <div class="why-icon">♾️</div>
-          <h3>Durability</h3>
-          <p>Our furniture is made to last decades, not just seasons.</p>
-        </div>
-      </div>
+      <div class="value-title">Quality Without Compromise</div>
+      <div class="value-desc">We use only premium-grade solid wood — no particle boards, no shortcuts. Every joint is tested, every finish is hand-polished. Our furniture is built to outlast trends.</div>
     </div>
-  </section>
-
-  <!-- SHOWROOMS -->
-  <section class="section-pad" id="showrooms">
-    <div class="container">
-      <div class="section-header center scroll-reveal">
-        <p class="section-tag">Visit Us</p>
-        <h2 class="section-title">Our Showrooms</h2>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       </div>
-      <div class="showroom-grid">
-        <div class="showroom-card scroll-reveal">
-          <div class="img-placeholder medium"></div>
-          <div class="showroom-info">
-            <h3>Malvan Showroom</h3>
-            <p>📍 Main Road, Malvan, Sindhudurg, Maharashtra</p>
-            <p>🕐 Mon–Sat: 9:00 AM – 8:00 PM</p>
-            <p>☎️ <a href="tel:+919999999999">+91 99999 99999</a></p>
-            <a href="https://maps.google.com" class="btn-outline mt-1" target="_blank">Get Directions</a>
-          </div>
-        </div>
-        <div class="showroom-card scroll-reveal delay-2">
-          <div class="img-placeholder medium"></div>
-          <div class="showroom-info">
-            <h3>Sukalwad Showroom</h3>
-            <p>📍 Sukalwad, Sindhudurg, Maharashtra</p>
-            <p>🕐 Mon–Sat: 9:00 AM – 7:00 PM</p>
-            <p>☎️ <a href="tel:+919999999999">+91 99999 99999</a></p>
-            <a href="https://maps.google.com" class="btn-outline mt-1" target="_blank">Get Directions</a>
-          </div>
-        </div>
-      </div>
+      <div class="value-title">Made for Real Homes</div>
+      <div class="value-desc">We design for how families actually live — generous storage, durable surfaces, and dimensions suited to Indian spaces. Beautiful and deeply practical.</div>
     </div>
-  </section>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="value-title">Artisan Legacy</div>
+      <div class="value-desc">We employ local karigar from the Konkan region, preserving woodworking traditions that date back generations. Each piece carries the mark of a master craftsman.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+      </div>
+      <div class="value-title">Custom Orders Welcome</div>
+      <div class="value-desc">Have a space with unusual dimensions or a specific vision? We love custom projects. Share your idea and our team will make it a reality, down to the last detail.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+      <div class="value-title">Delivery Across the Coast</div>
+      <div class="value-desc">We deliver across Sindhudurg, Goa, and Ratnagiri — carefully, on time, and with full installation support so your furniture is ready to use the same day.</div>
+    </div>
+    <div class="value-card">
+      <div class="value-icon">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.9 1.11h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.99 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div class="value-title">WhatsApp-First Service</div>
+      <div class="value-desc">Get instant quotes, share room photos, and track your order — all via WhatsApp. We believe buying furniture should feel as comfortable as a conversation with a friend.</div>
+    </div>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <a href="index.html" class="logo footer-logo"><span class="logo-main">Bhise'z</span><span class="logo-sub">FERNITURE</span></a>
-        <p>Handcrafted furniture for homes across the Konkan coast and beyond.</p>
+<!-- TEAM -->
+<section class="team">
+  <div class="team-header">
+    <p class="section-eyebrow">The People Behind Bhisez</p>
+    <h2 class="section-title" style="font-size:38px;">Meet Our <em>Team</em></h2>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-photo" style="background:#4A2C18;">
+        <div class="team-photo-placeholder">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Products</h4>
-        <ul>
-          <li><a href="products.html?cat=living">Sofas &amp; Living</a></li>
-          <li><a href="products.html?cat=bedroom">Beds &amp; Bedroom</a></li>
-          <li><a href="products.html?cat=mandir">Home Mandirs</a></li>
-          <li><a href="products.html?cat=doors">Safety Doors</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="products.html">All Products</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <ul class="contact-list">
-          <li>📍 Malvan &amp; Sukalwad</li>
-          <li>📞 <a href="tel:+919999999999">+91 99999 99999</a></li>
-          <li>💬 <a href="https://wa.me/919999999999" target="_blank">WhatsApp Us</a></li>
-        </ul>
+      <div class="team-info">
+        <div class="team-name">Ramesh Bhise</div>
+        <div class="team-role">Founder & Master Craftsman</div>
       </div>
     </div>
-    <div class="footer-bottom"><p>© 2025 Bhise'z Ferniture. All rights reserved.</p></div>
-  </footer>
+    <div class="team-card">
+      <div class="team-photo" style="background:#3D2414;">
+        <div class="team-photo-placeholder">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Sunita Bhise</div>
+        <div class="team-role">Head of Design</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo" style="background:#5C3820;">
+        <div class="team-photo-placeholder">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Prakash Naik</div>
+        <div class="team-role">Production Lead</div>
+      </div>
+    </div>
+    <div class="team-card">
+      <div class="team-photo" style="background:#6B4528;">
+        <div class="team-photo-placeholder">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+      </div>
+      <div class="team-info">
+        <div class="team-name">Anil Desai</div>
+        <div class="team-role">Customer Relations</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <a href="https://wa.me/919999999999" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-  </a>
+<!-- SHOWROOMS -->
+<section class="showrooms">
+  <div class="showrooms-left">
+    <p class="section-eyebrow">Visit Us</p>
+    <h2 class="section-title">Two Showrooms.<br><em>One Promise.</em></h2>
+    <p class="section-body">Walk in, touch the wood, sit in the sofa, open the wardrobe. No catalogue photo can replace the feeling of furniture built for you. Come see us — Mon to Sat, we'll be here.</p>
+    <div class="divider"></div>
+    <p class="section-body" style="font-size:13px;">WhatsApp us before you visit for a dedicated walkthrough with our design consultants.</p>
+  </div>
+  <div class="showroom-cards">
+    <div class="showroom-card">
+      <div class="showroom-num">01</div>
+      <div>
+        <div class="showroom-name">Malvan Showroom</div>
+        <div class="showroom-detail">
+          Main Market Road, Malvan<br>
+          Sindhudurg, Maharashtra 416606<br><br>
+          <strong>Mon – Sat</strong> &nbsp;·&nbsp; 10:00 AM – 7:30 PM
+        </div>
+      </div>
+    </div>
+    <div class="showroom-card">
+      <div class="showroom-num">02</div>
+      <div>
+        <div class="showroom-name">Sukalwad Showroom</div>
+        <div class="showroom-detail">
+          NH-66, Sukalwad<br>
+          Sindhudurg, Maharashtra 416520<br><br>
+          <strong>Mon – Sat</strong> &nbsp;·&nbsp; 10:00 AM – 7:30 PM
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <script src="js/main.js"></script>
-  <script src="js/animations.js"></script>
+<!-- CTA -->
+<section class="cta">
+  <p class="section-eyebrow" style="margin-bottom:16px;">Ready to Furnish Your Home?</p>
+  <h2 class="cta-title">Furniture that<br><em>feels like you.</em></h2>
+  <p style="font-size:15px; color:#8C7660; max-width:480px; margin:0 auto; line-height:1.8; font-weight:300;">
+    Browse our full collection online, or walk into either showroom and let our experts help you find exactly what your home has been missing.
+  </p>
+  <div class="cta-buttons">
+    <a href="#" class="btn-primary">Shop Collection</a>
+    <a href="#" class="btn-outline">Visit Showroom</a>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span class="ticker-dot"></span>Delivery across Sindhudurg, Goa & Ratnagiri</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Quality Guaranteed — Premium materials, built to last</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>WhatsApp Orders — Chat with us for instant quotes</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>2 Showrooms — Malvan & Sukalwad, open Mon–Sat</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Custom Furniture — Your vision, our craft</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Delivery across Sindhudurg, Goa & Ratnagiri</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Quality Guaranteed — Premium materials, built to last</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>WhatsApp Orders — Chat with us for instant quotes</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>2 Showrooms — Malvan & Sukalwad, open Mon–Sat</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Custom Furniture — Your vision, our craft</span>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+    <div id="footer"></div>
+
+<!-- WhatsApp FAB -->
+<a href="https://wa.me/91XXXXXXXXXX" class="whatsapp-fab" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+</a>
+    <script src="assets/js/include.js"></script>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  // Close menu on link click
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+</script>
+
 </body>
 </html>
+   

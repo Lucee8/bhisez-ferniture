@@ -11,9 +11,9 @@
       --text:    #222222;
       --muted:   #777777;
       --light:   #aaaaaa;
-      --orange:  #e07b39;
+      --green:  #e07b39;
       --green:   #2d7a4f;
-      --gold:    #c8973a;
+      --green:    #c8973a;
       --border:  #e8e0d6;
       --font-d:  'DM Serif Display', Georgia, serif;
       --font-b:  'DM Sans', system-ui, sans-serif;
@@ -40,7 +40,7 @@
       padding: 0.5rem 1rem;
       font-weight: 400;
     }
-    .announce-bar a { color: var(--gold); font-weight: 500; }
+    .announce-bar a { color: var(--green); font-weight: 500; }
 
     /* ═══════════════════════════════════════
        NAVBAR
@@ -56,7 +56,7 @@
       display: flex;
       align-items: center;
       gap: 1rem;
-      padding: 0 2rem;
+      padding: 5px;
       height: var(--nav-h);
       max-width: 1400px;
       margin: 0 auto;
@@ -155,7 +155,7 @@
     .nav-icon-btn span.badge {
       position: absolute; top: 4px; right: 4px;
       width: 16px; height: 16px;
-      background: var(--orange);
+      background: var(--green);
       color: white; font-size: 0.6rem; font-weight: 600;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
@@ -188,8 +188,8 @@
     }
     .cats-inner a:hover,
     .cats-inner a.active {
-      color: var(--orange);
-      border-bottom-color: var(--orange);
+      color: var(--green);
+      border-bottom-color: var(--green);
     }
 
     /* ═══════════════════════════════════════
@@ -229,12 +229,13 @@
     .hero-content {
       position: absolute;
       right: 8%;
-      top: 50%;
+      top: 35%;
       transform: translateY(-50%);
       text-align: right;
       z-index: 2;
     }
     .hero-tag {
+        padding-top: 50px;
       font-size: 0.78rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -250,13 +251,16 @@
       margin-bottom: 0.4rem;
     }
     .hero-title .big { display: block; }
-    .hero-title .accent { color: var(--orange); font-style: italic; }
+    
+    .hero-title .accent { color: #F5F5DC; font-style: italic; }
+
     .hero-sub {
       font-size: 1rem;
-      color: rgba(26,16,8,0.6);
+      color: #ffffff;
       margin-bottom: 1.5rem;
     }
-    .hero-sub strong { color: var(--orange); font-size: 1.6rem; font-weight: 700; }
+
+    .hero-sub strong { color: rgb(255, 208, 0); font-size: 1.6rem; font-weight: 700; }
 
     .hero-btn {
       display: inline-flex;
@@ -312,14 +316,14 @@
       gap: 0.6rem;
       flex-shrink: 0;
     }
-    .info-item svg { color: var(--gold); flex-shrink: 0; }
+    .info-item svg { color: var(--green); flex-shrink: 0; }
     .info-item span {
       font-size: 0.76rem;
       color: rgba(255,255,255,0.8);
       font-weight: 400;
       letter-spacing: 0.03em;
     }
-    .info-item span strong { color: var(--gold); font-weight: 600; }
+    .info-item span strong { color: var(--green); font-weight: 600; }
     @keyframes infoScroll {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
@@ -345,7 +349,7 @@
     .view-all {
       font-size: 0.82rem;
       font-weight: 500;
-      color: var(--orange);
+      color: var(--green);
       transition: opacity 0.2s;
     }
     .view-all:hover { opacity: 0.75; }
@@ -396,8 +400,8 @@
       font-size: 0;
     }
     .new-star {
-      width: 60%; aspect-ratio: 1;
-      background: rgba(255,255,255,0.12);
+      width:120%; aspect-ratio: 1;
+      /* background: rgba(255,255,255,0.12); */
       border-radius: 50%;
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
@@ -666,7 +670,7 @@
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--orange);
+      color: var(--green);
     }
 
     /* ═══════════════════════════════════════
@@ -800,10 +804,10 @@
       color: rgba(255,255,255,0.5);
       transition: all 0.2s;
     }
-    .footer-socials a:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-socials a:hover { border-color: var(--green); color: var(--green); }
     .footer-col h4 {
       font-size: 0.68rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--gold);
+      text-transform: uppercase; color: var(--green);
       margin-bottom: 1rem; font-weight: 600;
     }
     .footer-col ul li { margin-bottom: 0.5rem; }
@@ -872,7 +876,7 @@
       text-decoration: none;
     }
     .mob-nav-item svg { width: 20px; height: 20px; }
-    .mob-nav-item.active { color: var(--orange); }
+    .mob-nav-item.active { color: var(--green); }
 
     /* ═══════════════════════════════════════
        MOBILE MENU DRAWER
@@ -901,7 +905,7 @@
       border-bottom: 1px solid var(--border);
       font-size: 0.9rem; color: var(--text); font-weight: 500;
     }
-    .mob-drawer nav a:hover { color: var(--orange); }
+    .mob-drawer nav a:hover { color: var(--green); }
 
     /* ═══════════════════════════════════════
        RESPONSIVE
