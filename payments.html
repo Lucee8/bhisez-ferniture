@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Complete Payment</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --blue: #8B6F5C;
+    --blue-dark: #1a5ed4;
+    --yellow: #fb641b;
+    --yellow-btn: #ff9f00;
+    --green: #388e3c;
+    --red: #c62828;
+    --text: #212121;
+    --text-2: #878787;
+    --border: #e0e0e0;
+    --bg: #f1f3f6;
+    --white: #fff;
+    --shadow: 0 2px 8px rgba(0,0,0,0.08);
+    --radius: 4px;
+    --discount: #388e3c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .header {
+    background: var(--blue);
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+  }
+
+  .logo {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--white);
+    letter-spacing: -0.5px;
+  }
+
+  /* Main layout */
+  .main {
+    max-width: 1060px;
+    margin: 24px auto;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 16px;
+    align-items: start;
+  }
+
+  /* Card base */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  /* Payment panel */
+  .payment-header {
+    background: var(--blue);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .payment-header .back-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    opacity: 0.9;
+    transition: opacity 0.15s;
+  }
+
+  .payment-header .back-btn:hover { opacity: 1; }
+
+  .payment-header h1 {
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+    flex: 1;
+  }
+
+  .secure-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: rgba(255,255,255,0.85);
+    font-size: 12px;
+  }
+
+  .secure-badge svg { width: 14px; height: 14px; }
+
+  /* Payment methods list */
+  .methods-list {
+    padding: 0;
+  }
+
+  .method-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.12s;
+    position: relative;
+  }
+
+  .method-item:last-child { border-bottom: none; }
+  .method-item:hover { background: #fafbff; }
+  .method-item.active { background: #f0f5ff; }
+
+  .method-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .method-item.disabled:hover { background: transparent; }
+
+  .method-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: #555;
+  }
+
+  .method-icon svg { width: 22px; height: 22px; }
+
+  .method-info { flex: 1; min-width: 0; }
+
+  .method-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .method-sub {
+    font-size: 12px;
+    color: var(--text-2);
+    margin-bottom: 3px;
+  }
+
+  .method-offer {
+    font-size: 12px;
+    color: var(--blue);
+    font-weight: 500;
+  }
+
+  .method-tag {
+    font-size: 11px;
+    color: var(--text-2);
+    background: #f5f5f5;
+    padding: 2px 8px;
+    border-radius: 2px;
+    align-self: flex-start;
+    margin-top: 3px;
+  }
+
+  .recommended-badge {
+    font-size: 10px;
+    font-weight: 600;
+    color: #ff6900;
+    background: #fff4ec;
+    border: 1px solid #ffcba8;
+    padding: 2px 7px;
+    border-radius: 2px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    margin-left: auto;
+    align-self: flex-start;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  /* COD Panel */
+  .cod-panel {
+    padding: 20px 24px 24px;
+  }
+
+  .cod-panel h2 {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+
+  .cod-notice {
+    background: #fff8f0;
+    border: 1px solid #ffe0c4;
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .cod-notice .notice-icon {
+    color: #fb641b;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .cod-notice p {
+    font-size: 13px;
+    color: #5d4037;
+    line-height: 1.5;
+  }
+
+  .cod-notice p strong {
+    color: #bf360c;
+  }
+
+  .btn-place-order {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, #ffb700 0%, #ff9f00 100%);
+    border: none;
+    border-radius: var(--radius);
+    padding: 15px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 6px rgba(255,159,0,0.35);
+    transition: all 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-place-order:hover {
+    background: linear-gradient(135deg, #ffc31a 0%, #ffad0a 100%);
+    box-shadow: 0 4px 12px rgba(255,159,0,0.45);
+    transform: translateY(-1px);
+  }
+
+  .btn-place-order:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(255,159,0,0.25);
+  }
+
+  /* Order Summary */
+  .summary-card .summary-header {
+    padding: 14px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .summary-body { padding: 0 20px; }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    font-size: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .summary-row:last-child { border-bottom: none; }
+
+  .summary-row .label { color: var(--text-2); }
+  .summary-row .value { font-weight: 500; }
+  .summary-row .value.discount { color: var(--discount); font-weight: 600; }
+
+  .summary-section-title {
+    padding: 10px 0 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .summary-section-title span.toggle {
+    font-size: 14px;
+    color: var(--text-2);
+    cursor: pointer;
+  }
+
+  .total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-top: 2px solid var(--border);
+  }
+
+  .total-row .total-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .total-row .total-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--blue);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* Cashback strip */
+  .cashback-strip {
+    margin: 0 0 0 0;
+    background: linear-gradient(90deg, #e8f5e9 0%, #f1f8e9 100%);
+    border: 1px solid #c8e6c9;
+    border-radius: 0 0 var(--radius) var(--radius);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cashback-text h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2e7d32;
+  }
+
+  .cashback-text p {
+    font-size: 11px;
+    color: #558b2f;
+  }
+
+  .cashback-logos {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .cashback-logo {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: white;
+  }
+
+  .cashback-logo.hdfc { background: #003366; }
+  .cashback-logo.axis { background: #97144d; }
+
+  /* Savings highlight */
+  .savings-banner {
+    background: #e8f5e9;
+    border-left: 3px solid var(--green);
+    padding: 8px 12px;
+    margin: 0 20px 12px;
+    border-radius: 0 2px 2px 0;
+    font-size: 12px;
+    color: #2e7d32;
+    font-weight: 500;
+  }
+
+  .savings-banner strong { font-weight: 700; }
+
+  /* Animations */
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card {
+    animation: fadeSlideIn 0.3s ease both;
+  }
+
+  .card:nth-child(2) { animation-delay: 0.05s; }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 2px 6px rgba(255,159,0,0.35); }
+    50% { box-shadow: 0 4px 16px rgba(255,159,0,0.55); }
+  }
+
+  .btn-place-order { animation: pulse 2.5s ease-in-out infinite; }
+  .btn-place-order:hover { animation: none; }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    .main {
+      grid-template-columns: 1fr;
+    }
+    .summary-card { order: -1; }
+  }
+</style>
+
+</head>
+<body>
+
+<!-- Navbar -->
+    <div id="navbar"></div>
+
+<div class="main">
+
+  <!-- Left: Payment Methods -->
+  <div class="card">
+    <div class="payment-header">
+      <button class="back-btn" aria-label="Go back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <h1>Complete Payment</h1>
+      <div class="secure-badge">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.5 4.5-1.35 8-6.25 8-11.5V6L12 2z"/></svg>
+        100% Secure
+      </div>
+    </div>
+
+    <div class="methods-list">
+
+      <!-- Recommended -->
+      <div class="method-item active">
+        <div class="method-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/><path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
+        </div>
+        <div class="method-info">
+          <div class="method-name">Recommended for You</div>
+        </div>
+        <div class="recommended-badge">Best</div>
+      </div>
+
+      <!-- Credit/Debit/ATM -->
+      <div class="method-item">
+        <div class="method-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <div class="method-info">
+          <div class="method-name">Credit / Debit / ATM Card</div>
+          <div class="method-sub">Add and secure cards as per RBI guidelines</div>
+          <div class="method-offer">Get upto 5% cashback &nbsp;•&nbsp; 2 offers available</div>
+        </div>
+      </div>
+
+      <!-- Cash on Delivery -->
+      <div class="method-item" id="cod-trigger" onclick="showCOD()">
+        <div class="method-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </div>
+        <div class="method-info">
+          <div class="method-name">Cash on Delivery</div>
+        </div>
+      </div>
+
+      <!-- Gift Card -->
+      <div class="method-item">
+        <div class="method-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+        </div>
+        <div class="method-info">
+          <div class="method-name">Have a Flipkart Gift Card?</div>
+        </div>
+      </div>
+
+      <!-- UPI -->
+      <div class="method-item disabled">
+        <div class="method-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <div class="method-info">
+          <div class="method-name">UPI</div>
+        </div>
+        <div class="method-tag">Unavailable ⓘ</div>
+      </div>
+
+      <!-- EMI -->
+      <div class="method-item disabled">
+        <div class="method-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        </div>
+        <div class="method-info">
+          <div class="method-name">EMI</div>
+        </div>
+        <div class="method-tag">Unavailable ⓘ</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COD Popup Panel (center) -->
+  <!-- For layout fidelity this is shown inline below the methods on a 3-col grid -->
+
+  <!-- Right: Order Summary -->
+  <div class="summary-card card">
+    <div class="summary-header">Price Details</div>
+    <div class="summary-body">
+
+      <div class="summary-row">
+        <span class="label">MRP (incl. of all taxes)</span>
+        <span class="value">₹2,498</span>
+      </div>
+
+      <div class="summary-section-title">
+        Fees <span class="toggle">∧</span>
+      </div>
+
+      <div class="summary-row">
+        <span class="label" style="color: #2874f0; text-decoration: underline; cursor: pointer;">Payment Handling Fee</span>
+        <span class="value">₹16</span>
+      </div>
+
+      <div class="summary-row">
+        <span class="label">Protect Promise Fee</span>
+        <span class="value">₹9</span>
+      </div>
+
+      <div class="summary-section-title" style="margin-top: 4px;">
+        Discounts <span class="toggle">∧</span>
+      </div>
+
+      <div class="summary-row">
+        <span class="label">MRP Discount</span>
+        <span class="value discount">−₹1,930</span>
+      </div>
+
+      <div class="summary-row">
+        <span class="label">Coupons for you</span>
+        <span class="value discount">−₹54</span>
+      </div>
+
+    </div>
+
+    <div class="total-row">
+      <span class="total-label">Total Amount</span>
+      <span class="total-value">₹539</span>
+    </div>
+
+    <div class="savings-banner">
+      You're saving <strong>₹1,984</strong> on this order! 🎉
+    </div>
+
+    <div class="cashback-strip">
+      <div class="cashback-text">
+        <h4>5% Cashback</h4>
+        <p>Claim now with payment offers</p>
+      </div>
+      <div class="cashback-logos">
+        <div class="cashback-logo hdfc">H</div>
+        <div class="cashback-logo axis">A</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- COD Modal -->
+<div id="cod-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.4); z-index:200; align-items:center; justify-content:center;">
+  <div class="card" style="max-width:440px; width:90%; animation: fadeSlideIn 0.25s ease;">
+    <div class="payment-header" style="justify-content:space-between;">
+      <h1 style="font-size:15px;">Cash on Delivery</h1>
+      <button onclick="closeCOD()" style="background:none;border:none;color:white;font-size:22px;cursor:pointer;line-height:1;">×</button>
+    </div>
+    <div class="cod-panel">
+      <div class="cod-notice">
+        <div class="notice-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        </div>
+        <p>Due to handling costs, a nominal fee of <strong>₹16</strong> will be charged for orders placed using this option. Avoid this fee by paying online now.</p>
+      </div>
+      <button class="btn-place-order" onclick="alert('Order placed! 🎉')">
+        Place Order
+      </button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/js/include.js"></script>
+
+<script>
+  function showCOD() {
+    const modal = document.getElementById('cod-modal');
+    modal.style.display = 'flex';
+  }
+
+  function closeCOD() {
+    document.getElementById('cod-modal').style.display = 'none';
+  }
+
+  document.getElementById('cod-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeCOD();
+  });
+
+  // Method item active state
+  document.querySelectorAll('.method-item:not(.disabled)').forEach(item => {
+    item.addEventListener('click', function() {
+      document.querySelectorAll('.method-item').forEach(i => i.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

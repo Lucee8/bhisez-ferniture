@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cart — Livewell Furniture</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FFFFFF;
+    --tan: #E8DDD1;
+    --sand: #D4C4B0;
+    --bark: #8B6F5C;
+    --espresso: #3D2B1F;
+    --charcoal: #2A2A2A;
+    --muted: #7A7268;
+    --accent: #C4622D;
+    --accent-light: #F5EAE3;
+    --success: #4A7C59;
+    --success-light: #EDF4EF;
+    --border: #E0D8CF;
+    --shadow: rgba(61,43,31,0.07);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  header {
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--espresso);
+    letter-spacing: 0.03em;
+    text-decoration: none;
+  }
+  .logo span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--espresso); }
+  .nav-right { display: flex; align-items: center; gap: 20px; }
+  .icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--charcoal);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    padding: 6px 4px;
+    position: relative;
+  }
+  .cart-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 500;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -4px;
+    right: -8px;
+  }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb-bar {
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+  }
+  .breadcrumb-bar .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .breadcrumb-bar a { color: var(--muted); text-decoration: none; }
+  .breadcrumb-bar a:hover { color: var(--accent); }
+  .breadcrumb-bar .sep { color: var(--sand); }
+  .breadcrumb-bar .current { color: var(--charcoal); font-weight: 500; }
+
+  /* ── MAIN LAYOUT ── */
+  .page-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .page-wrapper { grid-template-columns: 1fr; }
+    .order-summary { order: -1; }
+  }
+
+  /* ── PAGE TITLE ── */
+  .cart-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--espresso);
+    margin-bottom: 6px;
+  }
+  .cart-subtitle {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+
+  /* ── PROGRESS STEPS ── */
+  .steps {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 28px;
+  }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .step-num {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    border: 1.5px solid var(--border);
+    color: var(--muted);
+    background: var(--warm-white);
+    flex-shrink: 0;
+  }
+  .step.active .step-num {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .step.done .step-num {
+    background: var(--success);
+    border-color: var(--success);
+    color: #fff;
+  }
+  .step-label { color: var(--muted); }
+  .step.active .step-label { color: var(--espresso); }
+  .step-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin: 0 14px;
+    max-width: 60px;
+  }
+
+  /* ── PROMO BANNER ── */
+  .promo-banner {
+    background: var(--success-light);
+    border: 1px solid #C8DECE;
+    border-radius: 10px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--success);
+    margin-bottom: 20px;
+  }
+  .promo-banner svg { flex-shrink: 0; }
+
+  /* ── CART ITEMS ── */
+  .cart-items { display: flex; flex-direction: column; gap: 16px; }
+
+  .cart-item {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 20px;
+    align-items: start;
+    transition: box-shadow .2s;
+  }
+  .cart-item:hover { box-shadow: 0 4px 20px var(--shadow); }
+
+  .item-img-wrap {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--cream);
+    flex-shrink: 0;
+    position: relative;
+  }
+  .item-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .item-img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--tan);
+  }
+
+  .item-details { display: flex; flex-direction: column; gap: 6px; }
+  .item-tag {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--bark);
+    background: var(--accent-light);
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    width: fit-content;
+  }
+  .item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--espresso);
+    line-height: 1.3;
+  }
+  .item-variant {
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .item-variant span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .color-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.15);
+    display: inline-block;
+  }
+  .item-delivery {
+    font-size: 12px;
+    color: var(--success);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 2px;
+  }
+  .item-actions-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* Qty control */
+  .qty-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--cream);
+  }
+  .qty-btn {
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--espresso);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s;
+  }
+  .qty-btn:hover { background: var(--tan); }
+  .qty-val {
+    width: 32px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--charcoal);
+    border: none;
+    background: none;
+    pointer-events: none;
+  }
+  .action-link {
+    font-size: 12px;
+    color: var(--muted);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 0;
+    transition: color .15s;
+    text-decoration: none;
+  }
+  .action-link:hover { color: var(--accent); }
+  .action-link.remove:hover { color: #C0392B; }
+  .divider-dot { color: var(--sand); font-size: 14px; }
+
+  .item-price-col {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    min-width: 110px;
+  }
+  .price-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--espresso);
+  }
+  .price-original {
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+  .price-savings {
+    font-size: 11px;
+    color: var(--success);
+    background: var(--success-light);
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .item-remove-top {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    padding: 2px;
+    border-radius: 4px;
+    transition: color .15s;
+    margin-top: -4px;
+    display: flex;
+    align-items: center;
+  }
+  .item-remove-top:hover { color: #C0392B; }
+
+  /* ── EMI / ASSURANCE CHIPS ── */
+  .assurance-strip {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .assurance-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--muted);
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 4px 12px;
+  }
+  .assurance-chip svg { color: var(--bark); }
+
+  /* ── COUPON ── */
+  .coupon-box {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-top: 16px;
+  }
+  .coupon-box h3 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .coupon-input-row {
+    display: flex;
+    gap: 10px;
+  }
+  .coupon-input {
+    flex: 1;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--charcoal);
+    background: var(--cream);
+    outline: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: border-color .2s;
+  }
+  .coupon-input:focus { border-color: var(--accent); }
+  .coupon-input::placeholder { text-transform: none; letter-spacing: 0; color: var(--sand); }
+  .coupon-apply-btn {
+    background: var(--espresso);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background .2s, transform .1s;
+    letter-spacing: 0.03em;
+  }
+  .coupon-apply-btn:hover { background: var(--accent); }
+  .coupon-apply-btn:active { transform: scale(0.98); }
+  .coupon-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .coupon-tag {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--accent);
+    border: 1px dashed var(--accent);
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
+    background: var(--accent-light);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    transition: background .15s;
+  }
+  .coupon-tag:hover { background: #EDCAB8; }
+
+  /* ── ORDER SUMMARY ── */
+  .order-summary {
+    position: sticky;
+    top: 88px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .summary-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .summary-header {
+    background: var(--espresso);
+    padding: 16px 20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #FAF7F2;
+    letter-spacing: 0.02em;
+  }
+  .summary-body { padding: 20px; }
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin-bottom: 12px;
+    color: var(--charcoal);
+  }
+  .summary-row .label { color: var(--muted); }
+  .summary-row .val { font-weight: 500; }
+  .summary-row .val.green { color: var(--success); }
+  .summary-row .val.accent { color: var(--accent); }
+  .summary-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 14px 0;
+  }
+  .summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .summary-total .t-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--espresso);
+  }
+  .summary-total .t-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--espresso);
+  }
+  .savings-pill {
+    background: var(--success-light);
+    border: 1px solid #C8DECE;
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--success);
+    margin-top: 14px;
+  }
+  .savings-pill strong { font-weight: 600; }
+  .checkout-btn {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 24px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: background .2s, transform .1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .checkout-btn:hover { background: #A84E22; }
+  .checkout-btn:active { transform: scale(0.99); }
+  .checkout-btn svg { transition: transform .2s; }
+  .checkout-btn:hover svg { transform: translateX(3px); }
+  .secure-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+
+  /* ── TRUST BADGES ── */
+  .trust-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+  }
+  .trust-card h4 {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .trust-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .trust-item:last-child { margin-bottom: 0; }
+  .trust-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .trust-text { font-size: 12px; color: var(--muted); line-height: 1.5; }
+  .trust-text strong { color: var(--charcoal); font-weight: 500; display: block; font-size: 13px; }
+
+  /* ── EMI CARD ── */
+  .emi-card {
+    background: linear-gradient(135deg, #3D2B1F 0%, #5C3E2E 100%);
+    border-radius: 14px;
+    padding: 18px 20px;
+    color: #FAF7F2;
+  }
+  .emi-card h4 {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #C4A98A;
+    margin-bottom: 8px;
+  }
+  .emi-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #FAF7F2;
+    margin-bottom: 4px;
+  }
+  .emi-sub { font-size: 12px; color: #B09070; }
+
+  /* ── RECOMMENDED ── */
+  .recommend-section { margin-top: 32px; }
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--espresso);
+    margin-bottom: 16px;
+  }
+  .recommend-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 700px) {
+    .recommend-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .rec-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: box-shadow .2s, transform .2s;
+  }
+  .rec-card:hover {
+    box-shadow: 0 6px 24px var(--shadow);
+    transform: translateY(-2px);
+  }
+  .rec-img {
+    height: 140px;
+    background: var(--tan);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .rec-img img { width: 100%; height: 100%; object-fit: cover; }
+  .rec-wishlist {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s;
+  }
+  .rec-wishlist:hover { background: var(--accent-light); }
+  .rec-body { padding: 12px; }
+  .rec-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--espresso);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .rec-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .rec-price-main { font-size: 15px; font-weight: 500; color: var(--charcoal); }
+  .rec-price-orig { font-size: 12px; color: var(--muted); text-decoration: line-through; }
+  .rec-add-btn {
+    width: 100%;
+    background: none;
+    border: 1px solid var(--espresso);
+    border-radius: 6px;
+    padding: 7px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--espresso);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: background .15s, color .15s;
+  }
+  .rec-add-btn:hover { background: var(--espresso); color: #fff; }
+
+  /* ── EMPTY STATE (hidden by default) ── */
+  .empty-state {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .empty-state.visible { display: flex; }
+  .empty-state h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--espresso);
+    margin: 16px 0 8px;
+  }
+  .empty-state p { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+  .shop-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .shop-btn:hover { background: #A84E22; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    right: 24px;
+    background: var(--espresso);
+    color: #FAF7F2;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity .3s, transform .3s;
+    pointer-events: none;
+    z-index: 999;
+    max-width: 320px;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+    <div id="navbar"></div>
+
+<!-- ── BREADCRUMB ──
+<div class="breadcrumb-bar">
+  <div class="inner">
+    <a href="#">Home</a>
+    <span class="sep">›</span>
+    <span class="current">Shopping Cart</span>
+  </div>
+</div> -->
+
+<!-- ── MAIN ── -->
+<div class="page-wrapper">
+
+  <!-- LEFT COL -->
+  <div>
+    <h1 class="cart-title">Your Cart</h1>
+    <p class="cart-subtitle" id="cart-count-text">3 items in your cart</p>
+
+    <!-- Steps -->
+    <div class="steps">
+      <div class="step active">
+        <div class="step-num">1</div>
+        <span class="step-label">Cart</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <span class="step-label">Address</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <span class="step-label">Payment</span>
+      </div>
+    </div>
+
+    <!-- Promo Banner -->
+    <div class="promo-banner">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      <span><strong>You're saving ₹8,500</strong> on this order — great picks!</span>
+    </div>
+
+    <!-- Cart Items -->
+    <div class="cart-items" id="cart-items-container">
+
+      <!-- Item 1 -->
+      <div class="cart-item" id="item-1">
+        <div class="item-img-wrap">
+          <div class="item-img-placeholder">
+            <svg width="48" height="48" fill="none" viewBox="0 0 64 64" stroke="#8B6F5C" stroke-width="1.5">
+              <rect x="8" y="28" width="48" height="20" rx="4"/>
+              <rect x="12" y="20" width="40" height="10" rx="3"/>
+              <line x1="16" y1="48" x2="16" y2="56"/>
+              <line x1="48" y1="48" x2="48" y2="56"/>
+            </svg>
+          </div>
+        </div>
+        <div class="item-details">
+          <span class="item-tag">Bestseller</span>
+          <div class="item-name">Hoxton 3-Seater Sofa</div>
+          <div class="item-variant">
+            <span><span class="color-dot" style="background:#8B7355;"></span> Camel Brown</span>
+            <span>· Fabric: Velvet</span>
+            <span>· Size: Standard</span>
+          </div>
+          <div class="item-delivery">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="1"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+            Delivers in 7–10 days
+          </div>
+          <div class="item-actions-row">
+            <div class="qty-control">
+              <button class="qty-btn" onclick="changeQty('item-1', -1)">−</button>
+              <span class="qty-val" id="qty-item-1">1</span>
+              <button class="qty-btn" onclick="changeQty('item-1', 1)">+</button>
+            </div>
+            <span class="divider-dot">·</span>
+            <button class="action-link" onclick="showToast('Moved to wishlist!')">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+              Save for later
+            </button>
+            <span class="divider-dot">·</span>
+            <button class="action-link remove" onclick="removeItem('item-1')">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+              Remove
+            </button>
+          </div>
+        </div>
+        <div class="item-price-col">
+          <button class="item-remove-top" onclick="removeItem('item-1')" title="Remove">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <div class="price-main" id="price-item-1">₹42,500</div>
+          <div class="price-original">₹52,000</div>
+          <div class="price-savings">Save ₹9,500</div>
+        </div>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="cart-item" id="item-2">
+        <div class="item-img-wrap">
+          <div class="item-img-placeholder">
+            <svg width="48" height="48" fill="none" viewBox="0 0 64 64" stroke="#8B6F5C" stroke-width="1.5">
+              <rect x="10" y="18" width="44" height="30" rx="3"/>
+              <rect x="4" y="42" width="56" height="5" rx="2"/>
+              <line x1="32" y1="10" x2="32" y2="18"/>
+              <circle cx="32" cy="8" r="3"/>
+            </svg>
+          </div>
+        </div>
+        <div class="item-details">
+          <span class="item-tag">New Arrival</span>
+          <div class="item-name">Oslo Extendable Dining Table</div>
+          <div class="item-variant">
+            <span><span class="color-dot" style="background:#D2A679;"></span> Natural Oak</span>
+            <span>· 6 Seater</span>
+            <span>· Material: Solid Wood</span>
+          </div>
+          <div class="item-delivery">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="1"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+            Delivers in 14–21 days
+          </div>
+          <div class="item-actions-row">
+            <div class="qty-control">
+              <button class="qty-btn" onclick="changeQty('item-2', -1)">−</button>
+              <span class="qty-val" id="qty-item-2">1</span>
+              <button class="qty-btn" onclick="changeQty('item-2', 1)">+</button>
+            </div>
+            <span class="divider-dot">·</span>
+            <button class="action-link" onclick="showToast('Moved to wishlist!')">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+              Save for later
+            </button>
+            <span class="divider-dot">·</span>
+            <button class="action-link remove" onclick="removeItem('item-2')">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+              Remove
+            </button>
+          </div>
+        </div>
+        <div class="item-price-col">
+          <button class="item-remove-top" onclick="removeItem('item-2')" title="Remove">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <div class="price-main" id="price-item-2">₹38,000</div>
+          <div class="price-original">₹45,000</div>
+          <div class="price-savings">Save ₹7,000</div>
+        </div>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="cart-item" id="item-3">
+        <div class="item-img-wrap">
+          <div class="item-img-placeholder">
+            <svg width="48" height="48" fill="none" viewBox="0 0 64 64" stroke="#8B6F5C" stroke-width="1.5">
+              <rect x="16" y="8" width="32" height="40" rx="4"/>
+              <line x1="16" y1="22" x2="48" y2="22"/>
+              <line x1="16" y1="36" x2="48" y2="36"/>
+              <line x1="32" y1="8" x2="32" y2="48"/>
+              <line x1="16" y1="48" x2="16" y2="56"/>
+              <line x1="48" y1="48" x2="48" y2="56"/>
+            </svg>
+          </div>
+        </div>
+        <div class="item-details">
+          <span class="item-tag">Limited Stock</span>
+          <div class="item-name">Atlas Wardrobe — 3 Door</div>
+          <div class="item-variant">
+            <span><span class="color-dot" style="background:#E8E0D5;"></span> Ivory White</span>
+            <span>· Finish: Matte</span>
+            <span>· 3 Doors</span>
+          </div>
+          <div class="item-delivery">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="1"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
+            Delivers in 10–14 days
+          </div>
+          <div class="item-actions-row">
+            <div class="qty-control">
+              <button class="qty-btn" onclick="changeQty('item-3', -1)">−</button>
+              <span class="qty-val" id="qty-item-3">1</span>
+              <button class="qty-btn" onclick="changeQty('item-3', 1)">+</button>
+            </div>
+            <span class="divider-dot">·</span>
+            <button class="action-link" onclick="showToast('Moved to wishlist!')">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+              Save for later
+            </button>
+            <span class="divider-dot">·</span>
+            <button class="action-link remove" onclick="removeItem('item-3')">
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+              Remove
+            </button>
+          </div>
+        </div>
+        <div class="item-price-col">
+          <button class="item-remove-top" onclick="removeItem('item-3')" title="Remove">
+            <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+          <div class="price-main" id="price-item-3">₹28,500</div>
+          <div class="price-original">₹34,000</div>
+          <div class="price-savings">Save ₹5,500</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="empty-state">
+      <svg width="72" height="72" fill="none" viewBox="0 0 80 80" stroke="#D4C4B0" stroke-width="1.5">
+        <path d="M20 16h40l-6 36H26L20 16z"/>
+        <circle cx="32" cy="62" r="3"/>
+        <circle cx="52" cy="62" r="3"/>
+        <path d="M12 10h8"/>
+      </svg>
+      <h2>Your cart is empty</h2>
+      <p>Looks like you haven't added anything yet.</p>
+      <button class="shop-btn">Browse Collection</button>
+    </div>
+
+    <!-- Assurance Strip -->
+    <div class="assurance-strip" id="assurance-strip">
+      <div class="assurance-chip">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Safe & Secure Checkout
+      </div>
+      <div class="assurance-chip">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        Free Installation
+      </div>
+      <div class="assurance-chip">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-5"/></svg>
+        Easy 30-Day Returns
+      </div>
+      <div class="assurance-chip">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        No-Cost EMI Available
+      </div>
+    </div>
+
+    <!-- Coupon Section -->
+    <div class="coupon-box" id="coupon-box">
+      <h3>
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+        Apply Coupon
+      </h3>
+      <div class="coupon-input-row">
+        <input type="text" class="coupon-input" id="coupon-input" placeholder="Enter coupon code" />
+        <button class="coupon-apply-btn" onclick="applyCoupon()">Apply</button>
+      </div>
+      <div class="coupon-tags">
+        <div class="coupon-tag" onclick="fillCoupon('NEWLW10')">NEWLW10</div>
+        <div class="coupon-tag" onclick="fillCoupon('FIRST15')">FIRST15</div>
+        <div class="coupon-tag" onclick="fillCoupon('SUMMER20')">SUMMER20</div>
+      </div>
+    </div>
+
+    <!-- Recommended Products -->
+    <div class="recommend-section" id="recommend-section">
+      <div class="section-heading">You may also like</div>
+      <div class="recommend-grid">
+        <div class="rec-card">
+          <div class="rec-img">
+            <div style="width:100%;height:100%;background:#E8DDD1;display:flex;align-items:center;justify-content:center;">
+              <svg width="52" height="52" fill="none" viewBox="0 0 64 64" stroke="#8B6F5C" stroke-width="1.5"><rect x="8" y="30" width="18" height="22" rx="2"/><rect x="38" y="30" width="18" height="22" rx="2"/><rect x="18" y="22" width="28" height="10" rx="2"/><line x1="4" y1="52" x2="60" y2="52"/></svg>
+            </div>
+            <button class="rec-wishlist">
+              <svg width="13" height="13" fill="none" stroke="#8B6F5C" stroke-width="2" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+            </button>
+          </div>
+          <div class="rec-body">
+            <div class="rec-name">Pebble Armchair</div>
+            <div class="rec-price">
+              <span class="rec-price-main">₹18,500</span>
+              <span class="rec-price-orig">₹24,000</span>
+            </div>
+            <button class="rec-add-btn" onclick="showToast('Pebble Armchair added to cart!')">Add to Cart</button>
+          </div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-img">
+            <div style="width:100%;height:100%;background:#DED5C8;display:flex;align-items:center;justify-content:center;">
+              <svg width="52" height="52" fill="none" viewBox="0 0 64 64" stroke="#8B6F5C" stroke-width="1.5"><rect x="12" y="14" width="40" height="28" rx="3"/><rect x="20" y="42" width="8" height="8"/><rect x="36" y="42" width="8" height="8"/><line x1="12" y1="26" x2="52" y2="26"/></svg>
+            </div>
+            <button class="rec-wishlist">
+              <svg width="13" height="13" fill="none" stroke="#8B6F5C" stroke-width="2" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+            </button>
+          </div>
+          <div class="rec-body">
+            <div class="rec-name">Zen Platform Bed</div>
+            <div class="rec-price">
+              <span class="rec-price-main">₹32,000</span>
+              <span class="rec-price-orig">₹40,000</span>
+            </div>
+            <button class="rec-add-btn" onclick="showToast('Zen Platform Bed added to cart!')">Add to Cart</button>
+          </div>
+        </div>
+        <div class="rec-card">
+          <div class="rec-img">
+            <div style="width:100%;height:100%;background:#E5DDD5;display:flex;align-items:center;justify-content:center;">
+              <svg width="52" height="52" fill="none" viewBox="0 0 64 64" stroke="#8B6F5C" stroke-width="1.5"><circle cx="32" cy="20" r="12"/><path d="M20 48 c0-8 24-8 24 0"/><line x1="32" y1="8" x2="32" y2="4"/></svg>
+            </div>
+            <button class="rec-wishlist">
+              <svg width="13" height="13" fill="none" stroke="#8B6F5C" stroke-width="2" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+            </button>
+          </div>
+          <div class="rec-body">
+            <div class="rec-name">Mellow Floor Lamp</div>
+            <div class="rec-price">
+              <span class="rec-price-main">₹5,200</span>
+              <span class="rec-price-orig">₹7,000</span>
+            </div>
+            <button class="rec-add-btn" onclick="showToast('Mellow Floor Lamp added to cart!')">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT COL: ORDER SUMMARY -->
+  <div class="order-summary">
+
+    <!-- EMI Card -->
+    <div class="emi-card">
+      <h4>No-Cost EMI Available</h4>
+      <div class="emi-main">₹9,250 / mo</div>
+      <div class="emi-sub">Starting from 12 month plans · 0% interest</div>
+    </div>
+
+    <!-- Summary Card -->
+    <div class="summary-card">
+      <div class="summary-header">Order Summary</div>
+      <div class="summary-body">
+        <div class="summary-row">
+          <span class="label">MRP (3 items)</span>
+          <span class="val">₹1,31,000</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">Product Discount</span>
+          <span class="val green">− ₹22,000</span>
+        </div>
+        <div class="summary-row">
+          <span class="label">Delivery Charges</span>
+          <span class="val green">FREE</span>
+        </div>
+        <div class="summary-row" id="coupon-row" style="display:none;">
+          <span class="label">Coupon Discount</span>
+          <span class="val accent" id="coupon-discount-val">− ₹0</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-total">
+          <span class="t-label">Total Amount</span>
+          <span class="t-val" id="total-val">₹1,09,000</span>
+        </div>
+        <div class="savings-pill">
+          <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span>You're saving <strong id="savings-val">₹22,000</strong> on this order</span>
+        </div>
+        <!-- <button class="checkout-btn" onclick="showToast('Proceeding to address & payment...')">
+          Proceed to Checkout
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button> -->
+        <button class="checkout-btn" onclick="window.location.href='checkout.html'">  Proceed to Checkout
+
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <line x1="5" y1="12" x2="19" y2="12"/>
+    <polyline points="12 5 19 12 12 19"/>
+  </svg>
+</button>
+        <div class="secure-note">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Secured by 256-bit SSL encryption
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust Card -->
+    <div class="trust-card">
+      <h4>Why shop with us</h4>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="18" height="18" fill="none" stroke="#C4622D" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="trust-text">
+          <strong>Free White-Glove Delivery</strong>
+          Delivered, assembled & placed in your room.
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="18" height="18" fill="none" stroke="#C4622D" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-5"/></svg>
+        </div>
+        <div class="trust-text">
+          <strong>30-Day Easy Returns</strong>
+          Not happy? We'll pick it up, no questions asked.
+        </div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">
+          <svg width="18" height="18" fill="none" stroke="#C4622D" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="trust-text">
+          <strong>1-Year Warranty</strong>
+          All products come with a manufacturer warranty.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toast-msg">Done!</span>
+</div>
+
+<script src="assets/js/include.js"></script>
+
+
+<script>
+  const prices = { 'item-1': 42500, 'item-2': 38000, 'item-3': 28500 };
+  const qtys   = { 'item-1': 1,     'item-2': 1,     'item-3': 1 };
+  let couponDiscount = 0;
+  let activeItems = new Set(['item-1','item-2','item-3']);
+
+  function fmt(n) {
+    return '₹' + n.toLocaleString('en-IN');
+  }
+
+  function updateSummary() {
+    let mrp = 131000;
+    let total = 0;
+    activeItems.forEach(id => {
+      total += prices[id] * qtys[id];
+    });
+    const savings = mrp - total - couponDiscount;
+    document.getElementById('total-val').textContent = fmt(total - couponDiscount);
+    document.getElementById('savings-val').textContent = fmt(mrp - total + couponDiscount);
+    document.getElementById('cart-count').textContent = activeItems.size;
+    const cnt = activeItems.size;
+    document.getElementById('cart-count-text').textContent = cnt + (cnt === 1 ? ' item' : ' items') + ' in your cart';
+    if (activeItems.size === 0) {
+      document.getElementById('empty-state').classList.add('visible');
+      document.getElementById('assurance-strip').style.display = 'none';
+      document.getElementById('coupon-box').style.display = 'none';
+    }
+  }
+
+  function changeQty(id, delta) {
+    qtys[id] = Math.max(1, qtys[id] + delta);
+    document.getElementById('qty-' + id).textContent = qtys[id];
+    document.getElementById('price-' + id).textContent = fmt(prices[id] * qtys[id]);
+    updateSummary();
+  }
+
+  function removeItem(id) {
+    const el = document.getElementById(id);
+    el.style.transition = 'opacity .3s, transform .3s';
+    el.style.opacity = '0';
+    el.style.transform = 'translateX(20px)';
+    setTimeout(() => { el.remove(); }, 300);
+    activeItems.delete(id);
+    updateSummary();
+    showToast('Item removed from cart');
+  }
+
+  function fillCoupon(code) {
+    document.getElementById('coupon-input').value = code;
+  }
+
+  function applyCoupon() {
+    const code = document.getElementById('coupon-input').value.trim().toUpperCase();
+    const map = { 'NEWLW10': 10900, 'FIRST15': 16350, 'SUMMER20': 21800 };
+    if (map[code]) {
+      couponDiscount = map[code];
+      document.getElementById('coupon-row').style.display = 'flex';
+      document.getElementById('coupon-discount-val').textContent = '− ' + fmt(couponDiscount);
+      updateSummary();
+      showToast('Coupon ' + code + ' applied! You save ' + fmt(couponDiscount));
+    } else if (code) {
+      showToast('Invalid coupon code. Try NEWLW10 or FIRST15');
+    }
+  }
+
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toast-msg').textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+  }
+</script>
+
+</body>
+</html>

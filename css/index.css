@@ -28,6 +28,68 @@
     ul   { list-style: none; }
     button { cursor: pointer; border: none; background: none; font-family: var(--font-b); }
 
+/* ── PAGE LOADER ── */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  transition: opacity 0.9s ease, visibility 0.9s ease;
+}
+
+#loader.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.ld-logo {
+  height: 90px;
+  width: auto;
+  object-fit: contain;
+  animation: breathe 1.8s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.45; }
+  50%       { opacity: 1; }
+}
+
+.ld-bar {
+  width: 140px;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.ld-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, #8B5E3C, transparent);
+  animation: sweep 1.3s ease-in-out infinite;
+}
+
+@keyframes sweep {
+  0%   { left: -100%; }
+  100% { left: 100%; }
+}
+
+.ld-sub {
+  font-size: 9px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: #999;
+}
+
     /* ═══════════════════════════════════════
        TOP ANNOUNCEMENT BAR
     ═══════════════════════════════════════ */

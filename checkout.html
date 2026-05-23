@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luxury Checkout</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/index.css">
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+      --bg:#E8DDD1;
+      --card:#E8DDD1;
+      --card2:#ffffff;
+      --border:#3D2B1F;
+      --text:#3D2B1F;
+      --muted:#3D2B1F;
+      --orange:#af9889;
+      --orange-hover:#8B6F5C;
+      --success:#8B6F5C;
+      --green:#6ee7a0;
+      --radius:18px;
+    }
+
+    body{
+      background:var(--bg);
+      color:var(--text);
+      font-family:'Inter',sans-serif;
+      min-height:100vh;
+      padding:40px 24px;
+    }
+
+    .checkout-container{
+      padding-top: 10px;
+      max-width:1400px;
+      margin:auto;
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:32px;
+      align-items:start;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:28px;
+    }
+
+    .section-title{
+      font-size:24px;
+      font-weight:700;
+      margin-bottom:24px;
+    }
+
+    .step{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:28px;
+    }
+
+    .step-number{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:rgba(255,122,26,0.15);
+      color:var(--orange);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      border:1px solid rgba(255,122,26,0.25);
+    }
+
+    .step-text h3{
+      font-size:18px;
+      margin-bottom:4px;
+    }
+
+    .step-text p{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+    }
+
+    .full-width{
+      grid-column:1/-1;
+    }
+
+    .input-group{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      color: #3D2B1F;
+    }
+
+    .input-group label{
+      font-size:14px;
+      color:#3D2B1F;
+      font-weight:500;
+    }
+
+    .input-group input,
+    .input-group textarea{
+      background:var(--card2);
+      border:1px solid var(--border);
+      color:var(--text);
+      padding:16px;
+      border-radius:14px;
+      outline:none;
+      transition:0.3s ease;
+      font-size:15px;
+    }
+
+    .input-group textarea{
+      resize:none;
+      min-height:120px;
+    }
+
+    .input-group input:focus,
+    .input-group textarea:focus{
+      border-color:var(--orange);
+      box-shadow:0 0 0 4px rgba(255,122,26,0.12);
+    }
+
+    .address-types{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+
+    .address-btn{
+      background:transparent;
+      border:1px solid var(--border);
+      color:var(--muted);
+      padding:12px 18px;
+      border-radius:12px;
+      cursor:pointer;
+      transition:0.3s ease;
+      font-weight:500;
+    }
+
+    .address-btn:hover{
+      border-color:var(--orange);
+      color:var(--orange);
+    }
+
+    .address-btn.active{
+      background:rgba(255,122,26,0.12);
+      border-color:var(--orange);
+      color:var(--orange);
+    }
+
+    .checkbox{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin-top:24px;
+      color:#0f2950;
+      font-size:15px;
+    }
+
+    .checkbox input{
+      width:18px;
+      height:18px;
+      accent-color:var(--orange);
+    }
+
+    .save-btn{
+      width:100%;
+      margin-top:34px;
+      padding:18px;
+      border:none;
+      border-radius:16px;
+      background:var(--orange);
+      color:white;
+      font-size:16px;
+      font-weight:600;
+      cursor:pointer;
+      transition:0.3s ease;
+    }
+
+    .save-btn:hover{
+      background:var(--orange-hover);
+      transform:translateY(-2px);
+    }
+
+    .sidebar{
+      position:sticky;
+      top:30px;
+      display:flex;
+      flex-direction:column;
+      gap:22px;
+    }
+
+    .coupon-card{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+    }
+
+    .coupon-content h4{
+      margin-bottom:6px;
+      font-size:17px;
+    }
+
+    .coupon-content p{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .apply-btn{
+      padding:12px 18px;
+      border-radius:12px;
+      border:1px solid rgba(255,122,26,0.3);
+      background:rgba(255,122,26,0.1);
+      color:var(--orange);
+      cursor:pointer;
+      font-weight:600;
+      transition:0.3s ease;
+    }
+
+    .apply-btn:hover{
+      background:rgba(255,122,26,0.18);
+    }
+
+    .option{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 0;
+      border-bottom:1px solid var(--border);
+    }
+
+    .option:last-child{
+      border:none;
+      padding-bottom:0;
+    }
+
+    .option-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .option input{
+      width:18px;
+      height:18px;
+      accent-color:var(--orange);
+    }
+
+    .summary-title{
+      font-size:22px;
+      font-weight:700;
+      margin-bottom:24px;
+    }
+
+    .price-row{
+      display:flex;
+      justify-content:space-between;
+      margin-bottom:18px;
+      color:#3D2B1F;
+    }
+
+    .price-row.total{
+      font-size:20px;
+      font-weight:700;
+      margin-top:20px;
+      padding-top:20px;
+      border-top:1px solid var(--border);
+      color:white;
+    }
+
+    .saving-box{
+      margin-top:24px;
+      background:var(--success);
+      border:1px solid rgba(110,231,160,0.15);
+      padding:18px;
+      border-radius:16px;
+      color:var(--green);
+    }
+
+    .saving-box h4{
+      margin-bottom:8px;
+      font-size:16px;
+    }
+
+    .saving-box p{
+      font-size:14px;
+      line-height:1.6;
+      opacity:0.9;
+    }
+
+    .pay-btn{
+      width:100%;
+      margin-top:28px;
+      padding:18px;
+      border:none;
+      border-radius:16px;
+      background:var(--orange);
+      color:white;
+      font-size:16px;
+      font-weight:700;
+      cursor:pointer;
+      transition:0.3s ease;
+    }
+
+    .pay-btn:hover{
+      background:var(--orange-hover);
+      transform:translateY(-2px);
+    }
+
+    .secure-note{
+      text-align:center;
+      margin-top:16px;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    @media(max-width:1024px){
+      .checkout-container{
+        grid-template-columns:1fr;
+      }
+
+      .sidebar{
+        position:relative;
+        top:0;
+      }
+    }
+
+    @media(max-width:640px){
+
+      body{
+        padding:18px;
+      }
+
+      .card{
+        padding:22px;
+      }
+
+      .form-grid{
+        grid-template-columns:1fr;
+      }
+
+      .coupon-card{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .save-btn,
+      .pay-btn{
+        padding:16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+    <div id="navbar"></div>
+
+  <div class="checkout-container">
+
+    <!-- LEFT SECTION -->
+    <div class="card">
+
+      <div class="step">
+        <div class="step-number">1</div>
+
+        <div class="step-text">
+          <h3>Delivery Information</h3>
+          <p>Enter your delivery and contact details</p>
+        </div>
+      </div>
+
+      <form class="form-grid">
+
+        <div class="input-group">
+          <label>First Name</label>
+          <input type="text" placeholder="John">
+        </div>
+
+        <div class="input-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Doe">
+        </div>
+
+        <div class="input-group full-width">
+          <label>Street Address</label>
+          <textarea placeholder="Enter your complete address"></textarea>
+        </div>
+
+        <div class="input-group">
+          <label>City</label>
+          <input type="text" placeholder="Mumbai">
+        </div>
+
+        <div class="input-group">
+          <label>Pincode</label>
+          <input type="text" placeholder="400001">
+        </div>
+
+        <div class="input-group">
+          <label>State</label>
+          <input type="text" placeholder="Maharashtra">
+        </div>
+
+        <div class="input-group">
+          <label>Country</label>
+          <input type="text" placeholder="India">
+        </div>
+
+        <div class="input-group full-width">
+          <label>Address Type</label>
+
+          <div class="address-types">
+            <button type="button" class="address-btn active">Home</button>
+            <button type="button" class="address-btn">Work</button>
+            <button type="button" class="address-btn">Others</button>
+          </div>
+        </div>
+
+        <div class="checkbox full-width">
+          <input type="checkbox" id="billing">
+          <label for="billing">
+            Billing address same as delivery address
+          </label>
+        </div>
+
+        <div class="full-width" style="margin-top:32px;">
+          <h2 class="section-title">Contact Details</h2>
+        </div>
+
+        <div class="input-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="john@example.com">
+        </div>
+
+        <div class="input-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="+91 9876543210">
+        </div>
+
+        <div class="full-width">
+          <button class="save-btn">
+            Save And Continue
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+
+    <!-- RIGHT SECTION -->
+    <div class="sidebar">
+
+      <div class="card coupon-card">
+
+        <div class="coupon-content">
+          <h4>Coupons & Rewards</h4>
+          <p>Apply available offers and save more</p>
+        </div>
+
+        <button class="apply-btn">Apply</button>
+
+      </div>
+
+      <div class="card">
+
+        <div class="option">
+          <div class="option-left">
+            <input type="checkbox">
+            <span>Add GST Invoice</span>
+          </div>
+        </div>
+
+        <div class="option">
+          <div class="option-left">
+            <input type="checkbox">
+            <span>Use Gift Card</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="card">
+
+        <h2 class="summary-title">Order Summary</h2>
+
+        <div class="price-row">
+          <span>Subtotal</span>
+          <span>₹48,999</span>
+        </div>
+
+        <div class="price-row">
+          <span>Delivery</span>
+          <span>₹499</span>
+        </div>
+
+        <div class="price-row">
+          <span>Discount</span>
+          <span>- ₹3,500</span>
+        </div>
+
+        <div class="price-row">
+          <span>GST</span>
+          <span>₹2,160</span>
+        </div>
+
+        <div class="price-row total">
+          <span>Total</span>
+          <span>₹48,158</span>
+        </div>
+
+        <!-- <div class="saving-box">
+          <h4>You Saved ₹3,500</h4>
+          <p>
+            Congratulations! Your order qualifies for premium savings and exclusive checkout offers.
+          </p>
+        </div> -->
+
+<a href="payments.html">
+  <button class="pay-btn">
+    Proceed To Pay
+  </button>
+</a>
+
+        <div class="secure-note">
+          Secure checkout with encrypted payment gateway
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+    <script src="assets/js/include.js"></script>
+
+  <script>
+
+    const addressButtons = document.querySelectorAll(".address-btn");
+
+    addressButtons.forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        addressButtons.forEach(btn => {
+          btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>

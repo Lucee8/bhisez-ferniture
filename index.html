@@ -13,6 +13,13 @@
 </head>
 <body>
 
+<!-- LOADER -->
+<div id="loader">
+  <img src="images/bhisez logo.png" alt="Bhise'z Ferniture" class="ld-logo">
+  <div class="ld-bar"></div>
+  <div class="ld-sub">Crafted with Care</div>
+</div>
+
 <!-- ══ ANNOUNCEMENT BAR ══
 <div class="announce-bar">
   🎉 Grand Sale — Up to <strong>40% OFF</strong> on all furniture! &nbsp;|&nbsp; Free delivery across Sindhudurg, Goa & Ratnagiri &nbsp;|&nbsp;
@@ -719,6 +726,12 @@
     <script src="assets/js/include.js"></script>
 
 <script>
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hide');
+  }, 1000); // wait 5 seconds after page loads
+});
 (function(){
 
   // ── Hero slider ──
