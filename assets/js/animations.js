@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(
       function (entries) {
-        entries.forEach(function (entry) {
+        entries.forEach(function (entry) { 
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
             observer.unobserve(entry.target); // Only reveal once

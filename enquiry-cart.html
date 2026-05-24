@@ -477,6 +477,7 @@
     cursor: pointer;
     transition: background .2s, transform .1s;
     letter-spacing: 0.03em;
+    white-space: nowrap;
   }
   .coupon-apply-btn:hover { background: var(--accent); }
   .coupon-apply-btn:active { transform: scale(0.98); }
@@ -752,7 +753,7 @@
   }
   .rec-add-btn:hover { background: var(--espresso); color: #fff; }
 
-  /* ── EMPTY STATE (hidden by default) ── */
+  /* ── EMPTY STATE ── */
   .empty-state {
     display: none;
     flex-direction: column;
@@ -808,23 +809,164 @@
     max-width: 320px;
   }
   .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ═══════════════════════════════════════════
+     RESPONSIVE FIXES — Mobile & Tablet
+  ═══════════════════════════════════════════ */
+
+  /* ── ALL SCREENS ≤900px: unstick order summary ── */
+  @media (max-width: 900px) {
+    .order-summary { position: static; top: auto; }
+  }
+
+  /* ── TABLET (641–900px) ── */
+  @media (min-width: 641px) and (max-width: 900px) {
+    .page-wrapper { padding: 24px 20px 56px; }
+  }
+
+  /* ── MEDIUM MOBILE (481–640px) ── */
+  @media (min-width: 481px) and (max-width: 640px) {
+    .page-wrapper { padding: 20px 16px 56px; gap: 20px; }
+
+    /* 2-col image + details, price full-width below */
+    .cart-item {
+      grid-template-columns: 88px 1fr;
+      grid-template-rows: auto auto;
+      padding: 14px;
+      gap: 12px 14px;
+      position: relative;
+    }
+    .item-img-wrap { width: 88px; height: 88px; }
+    .item-details  { grid-column: 2; }
+    .item-price-col {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: center;
+      min-width: unset;
+      text-align: left;
+      gap: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      justify-content: flex-start;
+    }
+    .item-remove-top { position: absolute; top: 14px; right: 14px; margin-top: 0; }
+
+    .coupon-input-row { flex-direction: column; gap: 8px; }
+    .coupon-apply-btn { width: 100%; }
+
+    .step-line { max-width: 36px; }
+  }
+
+  /* ── SMALL MOBILE (≤480px) ── */
+  @media (max-width: 480px) {
+    .page-wrapper { padding: 16px 12px 48px; gap: 16px; }
+
+    .cart-title  { font-size: 22px; }
+    .cart-subtitle { font-size: 12px; margin-bottom: 16px; }
+
+    /* Steps */
+    .steps { margin-bottom: 16px; }
+    .step  { gap: 5px; }
+    .step-label { font-size: 10px; letter-spacing: 0.03em; }
+    .step-line  { max-width: 20px; margin: 0 6px; }
+    .step-num   { width: 22px; height: 22px; font-size: 10px; }
+
+    /* Promo banner */
+    .promo-banner { font-size: 12px; padding: 10px 12px; gap: 8px; }
+
+    /* Cart item: 2-col, price below */
+    .cart-item {
+      grid-template-columns: 72px 1fr;
+      grid-template-rows: auto auto;
+      padding: 12px;
+      gap: 10px 12px;
+      position: relative;
+    }
+    .item-img-wrap { width: 72px; height: 72px; }
+    .item-details  { grid-column: 2; }
+    .item-price-col {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: center;
+      min-width: unset;
+      text-align: left;
+      gap: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      justify-content: flex-start;
+    }
+    .item-remove-top { position: absolute; top: 12px; right: 12px; margin-top: 0; }
+
+    .price-main    { font-size: 17px; }
+    .price-original { font-size: 11px; }
+    .price-savings { font-size: 10px; padding: 2px 6px; }
+
+    .item-name    { font-size: 15px; }
+    .item-variant { font-size: 11px; gap: 6px; }
+    .item-tag     { font-size: 9px; }
+    .item-delivery{ font-size: 11px; }
+
+    .item-actions-row { gap: 6px; margin-top: 6px; }
+    .qty-btn { width: 28px; height: 28px; }
+    .qty-val { width: 26px; font-size: 12px; }
+    .action-link { font-size: 11px; }
+    .divider-dot { font-size: 12px; }
+
+    /* Coupon */
+    .coupon-box { padding: 14px; margin-top: 12px; }
+    .coupon-input-row { flex-direction: column; gap: 8px; }
+    .coupon-apply-btn { width: 100%; text-align: center; padding: 11px; }
+    .coupon-input { font-size: 12px; }
+    .coupon-tags  { gap: 6px; }
+    .coupon-tag   { font-size: 10px; padding: 3px 8px; }
+
+    /* Assurance: 2×2 grid */
+    .assurance-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .assurance-chip { font-size: 10px; padding: 5px 8px; }
+
+    /* Recommended */
+    .recommend-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .rec-img  { height: 110px; }
+    .rec-name { font-size: 13px; }
+    .rec-price-main { font-size: 13px; }
+    .rec-price-orig { font-size: 11px; }
+    .rec-add-btn { font-size: 11px; padding: 6px 8px; }
+    .rec-body { padding: 10px; }
+    .section-heading { font-size: 20px; }
+
+    /* Summary */
+    .summary-header { font-size: 16px; padding: 14px 16px; }
+    .summary-body   { padding: 16px; }
+    .summary-row    { font-size: 12px; margin-bottom: 10px; }
+    .summary-total .t-val { font-size: 22px; }
+    .checkout-btn   { padding: 14px 20px; font-size: 14px; }
+
+    /* EMI */
+    .emi-card { padding: 14px 16px; }
+    .emi-main { font-size: 20px; }
+    .emi-sub  { font-size: 11px; }
+
+    /* Trust */
+    .trust-card { padding: 14px 16px; }
+    .trust-icon { width: 32px; height: 32px; }
+    .trust-text { font-size: 11px; }
+    .trust-text strong { font-size: 12px; }
+    .trust-item { gap: 10px; margin-bottom: 12px; }
+
+    /* Toast */
+    .toast { bottom: 16px; right: 12px; left: 12px; max-width: unset; font-size: 12px; }
+  }
 </style>
 </head>
 <body>
 
-<!-- Navbar -->
-    <div id="navbar"></div>
+<div id="navbar"></div>
 
-<!-- ── BREADCRUMB ──
-<div class="breadcrumb-bar">
-  <div class="inner">
-    <a href="#">Home</a>
-    <span class="sep">›</span>
-    <span class="current">Shopping Cart</span>
-  </div>
-</div> -->
-
-<!-- ── MAIN ── -->
 <div class="page-wrapper">
 
   <!-- LEFT COL -->
@@ -876,8 +1018,8 @@
           <div class="item-name">Hoxton 3-Seater Sofa</div>
           <div class="item-variant">
             <span><span class="color-dot" style="background:#8B7355;"></span> Camel Brown</span>
-            <span>· Fabric: Velvet</span>
-            <span>· Size: Standard</span>
+            <span>· Velvet</span>
+            <span>· Standard</span>
           </div>
           <div class="item-delivery">
             <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="1"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
@@ -929,7 +1071,7 @@
           <div class="item-variant">
             <span><span class="color-dot" style="background:#D2A679;"></span> Natural Oak</span>
             <span>· 6 Seater</span>
-            <span>· Material: Solid Wood</span>
+            <span>· Solid Wood</span>
           </div>
           <div class="item-delivery">
             <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="1"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
@@ -982,7 +1124,7 @@
           <div class="item-name">Atlas Wardrobe — 3 Door</div>
           <div class="item-variant">
             <span><span class="color-dot" style="background:#E8E0D5;"></span> Ivory White</span>
-            <span>· Finish: Matte</span>
+            <span>· Matte</span>
             <span>· 3 Doors</span>
           </div>
           <div class="item-delivery">
@@ -1035,7 +1177,7 @@
     <div class="assurance-strip" id="assurance-strip">
       <div class="assurance-chip">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Safe & Secure Checkout
+        Safe & Secure
       </div>
       <div class="assurance-chip">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
@@ -1043,11 +1185,11 @@
       </div>
       <div class="assurance-chip">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-5"/></svg>
-        Easy 30-Day Returns
+        30-Day Returns
       </div>
       <div class="assurance-chip">
         <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-        No-Cost EMI Available
+        No-Cost EMI
       </div>
     </div>
 
@@ -1068,7 +1210,7 @@
       </div>
     </div>
 
-    <!-- Recommended Products -->
+    <!-- Recommended -->
     <div class="recommend-section" id="recommend-section">
       <div class="section-heading">You may also like</div>
       <div class="recommend-grid">
@@ -1077,17 +1219,12 @@
             <div style="width:100%;height:100%;background:#E8DDD1;display:flex;align-items:center;justify-content:center;">
               <svg width="52" height="52" fill="none" viewBox="0 0 64 64" stroke="#8B6F5C" stroke-width="1.5"><rect x="8" y="30" width="18" height="22" rx="2"/><rect x="38" y="30" width="18" height="22" rx="2"/><rect x="18" y="22" width="28" height="10" rx="2"/><line x1="4" y1="52" x2="60" y2="52"/></svg>
             </div>
-            <button class="rec-wishlist">
-              <svg width="13" height="13" fill="none" stroke="#8B6F5C" stroke-width="2" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-            </button>
+            <button class="rec-wishlist"><svg width="13" height="13" fill="none" stroke="#8B6F5C" stroke-width="2" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
           </div>
           <div class="rec-body">
             <div class="rec-name">Pebble Armchair</div>
-            <div class="rec-price">
-              <span class="rec-price-main">₹18,500</span>
-              <span class="rec-price-orig">₹24,000</span>
-            </div>
-            <button class="rec-add-btn" onclick="showToast('Pebble Armchair added to cart!')">Add to Cart</button>
+            <div class="rec-price"><span class="rec-price-main">₹18,500</span><span class="rec-price-orig">₹24,000</span></div>
+            <button class="rec-add-btn" onclick="showToast('Pebble Armchair added!')">Add to Cart</button>
           </div>
         </div>
         <div class="rec-card">
@@ -1095,17 +1232,12 @@
             <div style="width:100%;height:100%;background:#DED5C8;display:flex;align-items:center;justify-content:center;">
               <svg width="52" height="52" fill="none" viewBox="0 0 64 64" stroke="#8B6F5C" stroke-width="1.5"><rect x="12" y="14" width="40" height="28" rx="3"/><rect x="20" y="42" width="8" height="8"/><rect x="36" y="42" width="8" height="8"/><line x1="12" y1="26" x2="52" y2="26"/></svg>
             </div>
-            <button class="rec-wishlist">
-              <svg width="13" height="13" fill="none" stroke="#8B6F5C" stroke-width="2" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-            </button>
+            <button class="rec-wishlist"><svg width="13" height="13" fill="none" stroke="#8B6F5C" stroke-width="2" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
           </div>
           <div class="rec-body">
             <div class="rec-name">Zen Platform Bed</div>
-            <div class="rec-price">
-              <span class="rec-price-main">₹32,000</span>
-              <span class="rec-price-orig">₹40,000</span>
-            </div>
-            <button class="rec-add-btn" onclick="showToast('Zen Platform Bed added to cart!')">Add to Cart</button>
+            <div class="rec-price"><span class="rec-price-main">₹32,000</span><span class="rec-price-orig">₹40,000</span></div>
+            <button class="rec-add-btn" onclick="showToast('Zen Platform Bed added!')">Add to Cart</button>
           </div>
         </div>
         <div class="rec-card">
@@ -1113,17 +1245,12 @@
             <div style="width:100%;height:100%;background:#E5DDD5;display:flex;align-items:center;justify-content:center;">
               <svg width="52" height="52" fill="none" viewBox="0 0 64 64" stroke="#8B6F5C" stroke-width="1.5"><circle cx="32" cy="20" r="12"/><path d="M20 48 c0-8 24-8 24 0"/><line x1="32" y1="8" x2="32" y2="4"/></svg>
             </div>
-            <button class="rec-wishlist">
-              <svg width="13" height="13" fill="none" stroke="#8B6F5C" stroke-width="2" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>
-            </button>
+            <button class="rec-wishlist"><svg width="13" height="13" fill="none" stroke="#8B6F5C" stroke-width="2" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
           </div>
           <div class="rec-body">
             <div class="rec-name">Mellow Floor Lamp</div>
-            <div class="rec-price">
-              <span class="rec-price-main">₹5,200</span>
-              <span class="rec-price-orig">₹7,000</span>
-            </div>
-            <button class="rec-add-btn" onclick="showToast('Mellow Floor Lamp added to cart!')">Add to Cart</button>
+            <div class="rec-price"><span class="rec-price-main">₹5,200</span><span class="rec-price-orig">₹7,000</span></div>
+            <button class="rec-add-btn" onclick="showToast('Mellow Floor Lamp added!')">Add to Cart</button>
           </div>
         </div>
       </div>
@@ -1132,15 +1259,12 @@
 
   <!-- RIGHT COL: ORDER SUMMARY -->
   <div class="order-summary">
-
-    <!-- EMI Card -->
     <div class="emi-card">
       <h4>No-Cost EMI Available</h4>
       <div class="emi-main">₹9,250 / mo</div>
       <div class="emi-sub">Starting from 12 month plans · 0% interest</div>
     </div>
 
-    <!-- Summary Card -->
     <div class="summary-card">
       <div class="summary-header">Order Summary</div>
       <div class="summary-body">
@@ -1169,17 +1293,10 @@
           <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
           <span>You're saving <strong id="savings-val">₹22,000</strong> on this order</span>
         </div>
-        <!-- <button class="checkout-btn" onclick="showToast('Proceeding to address & payment...')">
+        <button class="checkout-btn" onclick="window.location.href='checkout.html'">
           Proceed to Checkout
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </button> -->
-        <button class="checkout-btn" onclick="window.location.href='checkout.html'">  Proceed to Checkout
-
-  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-    <line x1="5" y1="12" x2="19" y2="12"/>
-    <polyline points="12 5 19 12 12 19"/>
-  </svg>
-</button>
+        </button>
         <div class="secure-note">
           <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           Secured by 256-bit SSL encryption
@@ -1187,7 +1304,6 @@
       </div>
     </div>
 
-    <!-- Trust Card -->
     <div class="trust-card">
       <h4>Why shop with us</h4>
       <div class="trust-item">
@@ -1218,7 +1334,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -1229,28 +1344,20 @@
 </div>
 
 <script src="assets/js/include.js"></script>
-
-
 <script>
   const prices = { 'item-1': 42500, 'item-2': 38000, 'item-3': 28500 };
   const qtys   = { 'item-1': 1,     'item-2': 1,     'item-3': 1 };
   let couponDiscount = 0;
   let activeItems = new Set(['item-1','item-2','item-3']);
 
-  function fmt(n) {
-    return '₹' + n.toLocaleString('en-IN');
-  }
+  function fmt(n) { return '₹' + n.toLocaleString('en-IN'); }
 
   function updateSummary() {
     let mrp = 131000;
     let total = 0;
-    activeItems.forEach(id => {
-      total += prices[id] * qtys[id];
-    });
-    const savings = mrp - total - couponDiscount;
+    activeItems.forEach(id => { total += prices[id] * qtys[id]; });
     document.getElementById('total-val').textContent = fmt(total - couponDiscount);
     document.getElementById('savings-val').textContent = fmt(mrp - total + couponDiscount);
-    document.getElementById('cart-count').textContent = activeItems.size;
     const cnt = activeItems.size;
     document.getElementById('cart-count-text').textContent = cnt + (cnt === 1 ? ' item' : ' items') + ' in your cart';
     if (activeItems.size === 0) {
@@ -1278,9 +1385,7 @@
     showToast('Item removed from cart');
   }
 
-  function fillCoupon(code) {
-    document.getElementById('coupon-input').value = code;
-  }
+  function fillCoupon(code) { document.getElementById('coupon-input').value = code; }
 
   function applyCoupon() {
     const code = document.getElementById('coupon-input').value.trim().toUpperCase();
@@ -1305,6 +1410,5 @@
     toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
   }
 </script>
-
 </body>
 </html>
